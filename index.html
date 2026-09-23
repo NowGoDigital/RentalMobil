@@ -4,22 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rental Mobil Premium - Lombok & Sekitarnya</title>
+    <!-- Menggunakan Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset & Base Styles */
+        /* --- RESET & VARIABLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
-        
-        /* Variables */
         :root {
-            --primary-color: #0A2342; /* Biru Tua */
-            --accent-color: #F4B400; /* Emas */
-            --light-bg: #f9f9f9;
+            --primary-color: #0A2342; /* Biru Tua Elegan */
+            --secondary-color: #1C4E80; /* Biru Sedang */
+            --accent-color: #F4B400; /* Emas/Kuning Hangat */
+            --text-light: #f4f4f4;
+            --text-dark: #333;
+            --transition: all 0.3s ease;
         }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: var(--text-dark); overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
 
-        /* Header */
+        /* --- TOP BAR --- */
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .top-bar-info span { margin-right: 20px; }
+        .top-bar-info i { color: var(--accent-color); margin-right: 5px; }
+        .top-bar-social a { margin-left: 15px; color: var(--text-light); transition: var(--transition); }
+        .top-bar-social a:hover { color: var(--accent-color); }
+
+        /* --- NAVBAR --- */
         header {
-            background: var(--primary-color);
-            color: white;
+            background: white;
             padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
@@ -27,73 +47,176 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-color); }
-        nav ul { list-style: none; display: flex; gap: 20px; }
-        nav a { color: white; text-decoration: none; transition: 0.3s; }
-        nav a:hover { color: var(--accent-color); }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary-color); letter-spacing: -1px; }
+        .logo span { color: var(--accent-color); }
+        
+        nav ul { display: flex; gap: 30px; }
+        nav a { 
+            color: var(--primary-color); 
+            font-weight: 600; 
+            position: relative;
+        }
+        nav a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--accent-color); transition: var(--transition);
+        }
+        nav a:hover::after { width: 100%; }
+        
         .btn-cta {
             background: var(--accent-color);
             color: var(--primary-color);
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
             font-weight: bold;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(244, 180, 0, 0.3);
         }
+        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(244, 180, 0, 0.4); }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        /* --- HERO SLIDER --- */
+        .hero-slider {
+            position: relative;
+            height: 85vh;
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
             background-size: cover;
             background-position: center;
-            height: 80vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+        }
+        .slide.active { opacity: 1; }
+        .slide::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
             text-align: center;
             color: white;
-            padding: 0 20px;
+            max-width: 800px;
+            padding: 20px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.8s ease 0.3s;
         }
-        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.2rem; max-width: 700px; margin-bottom: 2rem; }
+        .slide.active .hero-content { transform: translateY(0); opacity: 1; }
+        
+        .hero-content h1 { font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-content p { font-size: 1.3rem; margin-bottom: 2rem; font-weight: 300; }
+        
+        /* Slider Controls */
+        .slider-dots {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 10px; z-index: 10;
+        }
+        .dot { width: 12px; height: 12px; background: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: var(--transition); }
+        .dot.active { background: var(--accent-color); transform: scale(1.2); }
 
-        /* Services Section */
+        /* --- WOW SERVICES SECTION --- */
         .services {
-            padding: 4rem 5%;
-            background: var(--light-bg);
+            padding: 5rem 5%;
+            background: #f8f9fa;
             text-align: center;
         }
-        .services h2 { margin-bottom: 3rem; color: var(--primary-color); }
+        .section-title {
+            font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;
+            position: relative; display: inline-block;
+        }
+        .section-title::after {
+            content: ''; display: block; width: 60px; height: 4px; background: var(--accent-color);
+            margin: 10px auto 0; border-radius: 2px;
+        }
+        .section-subtitle { color: #666; margin-bottom: 4rem; }
+
         .service-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
+
+        /* Card Design "Wow" */
         .service-card {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            position: relative;
+            text-align: left;
+            border: 1px solid #eee;
         }
-        .service-card:hover { transform: translateY(-5px); }
-        .service-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
-        .service-title { font-weight: bold; margin-bottom: 0.5rem; color: var(--primary-color); }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--accent-color);
+        }
+        .card-img-wrapper {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .card-img-wrapper img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .service-card:hover .card-img-wrapper img { transform: scale(1.1); }
+        
+        .card-icon-float {
+            position: absolute; bottom: -25px; right: 20px;
+            width: 50px; height: 50px; background: var(--accent-color);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: var(--primary-color); font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+        
+        .card-content { padding: 2rem; padding-top: 1.5rem; }
+        .card-content h3 { color: var(--primary-color); margin-bottom: 10px; font-size: 1.4rem; }
+        .card-content p { color: #666; font-size: 0.95rem; margin-bottom: 20px; }
+        
+        .card-link {
+            color: var(--secondary-color); font-weight: bold; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 5px;
+            transition: var(--transition);
+        }
+        .card-link:hover { gap: 10px; color: var(--accent-color); }
 
-        /* Responsive */
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            nav ul { display: none; } /* Simplified for demo */
-            header { flex-wrap: wrap; }
+            .top-bar { flex-direction: column; gap: 10px; text-align: center; }
+            .hero-content h1 { font-size: 2.2rem; }
+            nav ul { display: none; } /* Mobile menu toggle would go here */
+            .section-title { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <span><i class="fas fa-phone-alt"></i> +62 812-3456-7890</span>
+            <span><i class="fas fa-envelope"></i> info@rentalmobilpremium.com</span>
+        </div>
+        <div class="top-bar-social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </div>
+
+    <!-- Navbar -->
     <header>
-        <div class="logo">RENTAL MOBIL PREMIUM</div>
+        <div class="logo">RENTAL<span>MOBIL</span></div>
         <nav>
             <ul>
                 <li><a href="#">Beranda</a></li>
@@ -105,49 +228,144 @@
         <a href="#" class="btn-cta">Pesan Sekarang</a>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Jelajahi Indonesia dengan Nyaman</h1>
-        <p>"Dengan armada yang luas dan harga yang kompetitif, kami siap membantu Anda dalam perjalanan bisnis atau liburan"</p>
-        <a href="#layanan" class="btn-cta">Lihat Layanan Kami</a>
+    <!-- Hero Slider -->
+    <section class="hero-slider">
+        <!-- Slide 1: General/Lombok -->
+        <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop');">
+            <div class="hero-content">
+                <h1>Jelajahi Keindahan Lombok</h1>
+                <p>"Dengan armada yang luas dan harga yang kompetitif, kami siap membantu Anda dalam perjalanan bisnis atau liburan"</p>
+                <a href="#" class="btn-cta">Mulai Petualangan</a>
+            </div>
+        </div>
+        
+        <!-- Slide 2: HiAce Armada -->
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=1920&auto=format&fit=crop');"> 
+            <!-- Note: Ganti URL ini dengan foto asli HiAce Anda nanti -->
+            <div class="hero-content">
+                <h1>Kenyamanan Grup dengan HiAce</h1>
+                <p>Armada Toyota HiAce Premium yang luas, AC dingin, dan kursi reclining untuk perjalanan jauh yang menyenangkan.</p>
+                <a href="#" class="btn-cta">Sewa HiAce</a>
+            </div>
+        </div>
+
+        <!-- Slide 3: HiAce Interior/Detail -->
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1626292385901-69c5886557d6?q=80&w=1920&auto=format&fit=crop');">
+            <div class="hero-content">
+                <h1>Siap Antar Jemput Dimana Saja</h1>
+                <p>Layanan antar jemput Bandara, Mataram, Bangsal, hingga Sumbawa. Driver profesional siap melayani 24 jam.</p>
+                <a href="#" class="btn-cta">Hubungi Kami</a>
+            </div>
+        </div>
+
+        <div class="slider-dots">
+            <div class="dot active" onclick="currentSlide(0)"></div>
+            <div class="dot" onclick="currentSlide(1)"></div>
+            <div class="dot" onclick="currentSlide(2)"></div>
+        </div>
     </section>
 
     <!-- Services Section -->
     <section id="layanan" class="services">
-        <h2>Layanan Unggulan Kami</h2>
+        <h2 class="section-title">Layanan Unggulan</h2>
+        <p class="section-subtitle">Solusi transportasi terbaik untuk setiap kebutuhan perjalanan Anda</p>
+        
         <div class="service-grid">
+            <!-- Card 1 -->
             <div class="service-card">
-                <span class="service-icon">🏝️</span>
-                <div class="service-title">Paket Tour Lombok</div>
-                <p>Nikmati keindahan pantai dan budaya Lombok dengan panduan lokal terbaik.</p>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1518509562904-e7ef304366e9?q=80&w=600&auto=format&fit=crop" alt="Tour Lombok">
+                    <div class="card-icon-float"><i class="fas fa-map-marked-alt"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Paket Tour Lombok</h3>
+                    <p>Jelajahi pantai Pink, Gunung Rinjani, dan Gili Trawangan dengan itinerary fleksibel.</p>
+                    <a href="#" class="card-link">Lihat Detail <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
+
+            <!-- Card 2 -->
             <div class="service-card">
-                <span class="service-icon">🦈</span>
-                <div class="service-title">Paket Tour Whale Shark</div>
-                <p>Petualangan menyelam bersama hiu paus di perairan Labuan Bajo.</p>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1560275619-4662e36fa65c?q=80&w=600&auto=format&fit=crop" alt="Whale Shark">
+                    <div class="card-icon-float"><i class="fas fa-fish"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Paket Tour Whale Shark</h3>
+                    <p>Pengalaman langka menyelam bersama hiu paus di perairan Cenderawasih/Labuan Bajo.</p>
+                    <a href="#" class="card-link">Lihat Detail <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
+
+            <!-- Card 3 -->
             <div class="service-card">
-                <span class="service-icon">🐉</span>
-                <div class="service-title">Paket Tour Komodo</div>
-                <p>Jelajahi Taman Nasional Komodo dan lihat naga purba secara langsung.</p>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1596423736737-69520e873657?q=80&w=600&auto=format&fit=crop" alt="Komodo">
+                    <div class="card-icon-float"><i class="fas fa-dragon"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Paket Tour Komodo</h3>
+                    <p>Trekking di Pulau Padar dan bertemu komodo langsung di habitat aslinya.</p>
+                    <a href="#" class="card-link">Lihat Detail <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
+
+            <!-- Card 4 -->
             <div class="service-card">
-                <span class="service-icon">🚗</span>
-                <div class="service-title">Sewa Mobil</div>
-                <p>Berbagai jenis mobil tersedia: MPV, SUV, hingga Luxury untuk kebutuhan Anda.</p>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=600&auto=format&fit=crop" alt="Sewa Mobil">
+                    <div class="card-icon-float"><i class="fas fa-car"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Sewa Mobil Lepas Kunci</h3>
+                    <p>Pilihan mobil Avanza, Innova, Fortuner hingga Alphard. Bebas berkendara sesuai keinginan.</p>
+                    <a href="#" class="card-link">Lihat Armada <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
+
+            <!-- Card 5 -->
             <div class="service-card">
-                <span class="service-icon">✈️</span>
-                <div class="service-title">Antar Jemput Bandara</div>
-                <p>Layanan door-to-door dari Bandara ke Mataram, Bangsal, Sekotong, Kayangan, Lembar, Sumbawa, dll.</p>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1436491865330-0792e5cf9f21?q=80&w=600&auto=format&fit=crop" alt="Antar Jemput">
+                    <div class="card-icon-float"><i class="fas fa-plane-departure"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Layanan Antar Jemput</h3>
+                    <p>Bandara, Mataram, Bangsal, Sekotong, Kayangan, Lembar, hingga penyeberangan Sumbawa.</p>
+                    <a href="#" class="card-link">Cek Rute <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer Simple -->
     <footer style="background: var(--primary-color); color: white; text-align: center; padding: 2rem;">
         <p>&copy; 2026 Rental Mobil Premium. All Rights Reserved.</p>
     </footer>
 
+    <!-- Script Sederhana untuk Slider -->
+    <script>
+        let currentIdx = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentIdx = index;
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+        }
+
+        // Auto slide setiap 5 detik
+        setInterval(() => {
+            let nextIdx = (currentIdx + 1) % slides.length;
+            showSlide(nextIdx);
+        }, 5000);
+    </script>
 </body>
 </html>
