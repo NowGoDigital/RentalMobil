@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Mobil Premium - Lombok & Sekitarnya</title>
+    <style>
+        /* Reset & Base Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
+        
+        /* Variables */
+        :root {
+            --primary-color: #0A2342; /* Biru Tua */
+            --accent-color: #F4B400; /* Emas */
+            --light-bg: #f9f9f9;
+        }
+
+        /* Header */
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-color); }
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav a { color: white; text-decoration: none; transition: 0.3s; }
+        nav a:hover { color: var(--accent-color); }
+        .btn-cta {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin-bottom: 2rem; }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 5%;
+            background: var(--light-bg);
+            text-align: center;
+        }
+        .services h2 { margin-bottom: 3rem; color: var(--primary-color); }
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover { transform: translateY(-5px); }
+        .service-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+        .service-title { font-weight: bold; margin-bottom: 0.5rem; color: var(--primary-color); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            nav ul { display: none; } /* Simplified for demo */
+            header { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">RENTAL MOBIL PREMIUM</div>
+        <nav>
+            <ul>
+                <li><a href="#">Beranda</a></li>
+                <li><a href="#layanan">Layanan</a></li>
+                <li><a href="#armada">Armada</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="btn-cta">Pesan Sekarang</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Jelajahi Indonesia dengan Nyaman</h1>
+        <p>"Dengan armada yang luas dan harga yang kompetitif, kami siap membantu Anda dalam perjalanan bisnis atau liburan"</p>
+        <a href="#layanan" class="btn-cta">Lihat Layanan Kami</a>
+    </section>
+
+    <!-- Services Section -->
+    <section id="layanan" class="services">
+        <h2>Layanan Unggulan Kami</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <span class="service-icon">🏝️</span>
+                <div class="service-title">Paket Tour Lombok</div>
+                <p>Nikmati keindahan pantai dan budaya Lombok dengan panduan lokal terbaik.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🦈</span>
+                <div class="service-title">Paket Tour Whale Shark</div>
+                <p>Petualangan menyelam bersama hiu paus di perairan Labuan Bajo.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🐉</span>
+                <div class="service-title">Paket Tour Komodo</div>
+                <p>Jelajahi Taman Nasional Komodo dan lihat naga purba secara langsung.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🚗</span>
+                <div class="service-title">Sewa Mobil</div>
+                <p>Berbagai jenis mobil tersedia: MPV, SUV, hingga Luxury untuk kebutuhan Anda.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">✈️</span>
+                <div class="service-title">Antar Jemput Bandara</div>
+                <p>Layanan door-to-door dari Bandara ke Mataram, Bangsal, Sekotong, Kayangan, Lembar, Sumbawa, dll.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Simple -->
+    <footer style="background: var(--primary-color); color: white; text-align: center; padding: 2rem;">
+        <p>&copy; 2026 Rental Mobil Premium. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
