@@ -1,1 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYD USA - Build Your Dreams</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Arial&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --byd-red: #D70C19;
+            --signal-red: #FF0000;
+            --electric-blue: #3753B1;
+            --deep-neutral: #252728;
+            --graphite-black: #252728;
+            --white: #FFFFFF;
+            --black: #020202;
+        }
+
+        body {
+            font-family: Arial, 'Helvetica Neue', sans-serif;
+            color: var(--graphite-black);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--byd-red);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--graphite-black);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--byd-red);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1920&h=1080&fit=crop') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--black);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--black);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        /* Featured Models Section */
+        .featured-models {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--graphite-black);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--deep-neutral);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .model-card {
+            background: var(--white);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .model-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .model-card:nth-child(1) .model-image {
+            background-image: url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=600&fit=crop');
+        }
+
+        .model-card:nth-child(2) .model-image {
+            background-image: url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&h=600&fit=crop');
+        }
+
+        .model-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--byd-red);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .model-info {
+            padding: 2rem;
+        }
+
+        .model-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--graphite-black);
+        }
+
+        .model-specs {
+            display: flex;
+            gap: 2rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--deep-neutral);
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .model-description {
+            margin: 1rem 0;
+            color: var(--deep-neutral);
+            line-height: 1.6;
+        }
+
+        .model-cta {
+            display: inline-block;
+            background: var(--byd-red);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .model-cta:hover {
+            background: #b80a15;
+        }
+
+        /* Mission Section */
+        .mission {
+            padding: 6rem 2rem;
+            background: var(--deep-neutral);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mission h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        .mission p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .mission-highlight {
+            color: var(--byd-red);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--graphite-black);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--graphite-black);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            background: transparent;
+            color: var(--graphite-black);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--black);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--byd-red);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            opacity: 1;
+            color: var(--byd-red);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            color: var(--byd-red);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .models-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .model-specs {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-header h2,
+            .mission h2,
+            .contact h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">BYD</a>
+            <ul class="nav-links">
+                <li><a href="#models">Models</a></li>
+                <li><a href="#about">About BYD</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Build Your Dreams</h1>
+            <p>Experience the future of electric mobility with cutting-edge technology and uncompromising performance.</p>
+            <div class="cta-buttons">
+                <a href="#models" class="btn-primary">Explore Models</a>
+                <a href="#about" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Models -->
+    <section id="models" class="featured-models">
+        <div class="section-header">
+            <h2>Featured Models</h2>
+            <p>Discover our flagship electric vehicles that redefine luxury and performance</p>
+        </div>
+        
+        <div class="models-grid">
+            <!-- BYD HAN -->
+            <div class="model-card">
+                <div class="model-image">
+                    <span class="model-badge">FLAGSHIP SEDAN</span>
+                </div>
+                <div class="model-info">
+                    <h3>BYD HAN</h3>
+                    <div class="model-specs">
+                        <div class="spec-item">
+                            <span>⚡</span>
+                            <span>715km Range</span>
+                        </div>
+                        <div class="spec-item">
+                            <span>🚀</span>
+                            <span>3.9s 0-100km/h</span>
+                        </div>
+                        <div class="spec-item">
+                            <span>🔋</span>
+                            <span>Blade Battery</span>
+                        </div>
+                    </div>
+                    <p class="model-description">
+                        The BYD HAN combines elegant design with exceptional performance. Featuring our revolutionary Blade Battery technology and advanced driver assistance systems.
+                    </p>
+                    <a href="#" class="model-cta">Explore More</a>
+                </div>
+            </div>
+
+            <!-- YANGWANG U9 Xtreme -->
+            <div class="model-card">
+                <div class="model-image">
+                    <span class="model-badge">SUPERCAR</span>
+                </div>
+                <div class="model-info">
+                    <h3>YANGWANG U9 Xtreme</h3>
+                    <div class="model-specs">
+                        <div class="spec-item">
+                            <span>⚡</span>
+                            <span>1,300+ HP</span>
+                        </div>
+                        <div class="spec-item">
+                            <span>🚀</span>
+                            <span>2.36s 0-100km/h</span>
+                        </div>
+                        <div class="spec-item">
+                            <span>🏎️</span>
+                            <span>Quad Motor AWD</span>
+                        </div>
+                    </div>
+                    <p class="model-description">
+                        The ultimate expression of electric performance. The YANGWANG U9 Xtreme delivers supercar acceleration with zero emissions and unmatched luxury.
+                    </p>
+                    <a href="#" class="model-cta">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="about" class="mission">
+        <div class="mission-content">
+            <h2>Cool the Earth by One Degree</h2>
+            <p>
+                At BYD, we believe in <span class="mission-highlight">innovating to create a better life</span>. 
+                Our mission extends beyond manufacturing electric vehicles – we're committed to sustainable 
+                transportation solutions that reduce carbon emissions and protect our planet for future generations.
+            </p>
+            <p>
+                Through breakthrough battery technology, renewable energy integration, and intelligent 
+                manufacturing, we're driving the global transition to clean energy while delivering 
+                exceptional products that exceed expectations.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2>Contact Us</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="region">Region</label>
+                    <select id="region" name="region" required>
+                        <option value="">Select your region</option>
+                        <option value="northeast">Northeast</option>
+                        <option value="southeast">Southeast</option>
+                        <option value="midwest">Midwest</option>
+                        <option value="southwest">Southwest</option>
+                        <option value="west">West Coast</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="topic">Topic</label>
+                    <select id="topic" name="topic" required>
+                        <option value="">Select a topic</option>
+                        <option value="sales">Vehicle Sales</option>
+                        <option value="service">Service & Support</option>
+                        <option value="partnership">Business Partnership</option>
+                        <option value="media">Media Inquiry</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell us how we can help you..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Models</h4>
+                <ul>
+                    <li><a href="#">BYD HAN</a></li>
+                    <li><a href="#">YANGWANG U9</a></li>
+                    <li><a href="#">BYD TANG</a></li>
+                    <li><a href="#">BYD SEAL</a></li>
+                    <li><a href="#">All Models</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>About BYD</h4>
+                <ul>
+                    <li><a href="#">Company Overview</a></li>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Investor Relations</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Find a Dealer</a></li>
+                    <li><a href="#">Service Centers</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Data Privacy</a></li>
+                    <li><a href="#">California Consumer Privacy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Follow us on social media for the latest updates and innovations.</p>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 BYD Company Limited. All rights reserved. | Build Your Dreams</p>
+        </div>
+    </footer>
+</body>
+</html>
