@@ -7,324 +7,94 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* ===== RESET & BASE ===== */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* ===== RESET & BASE (TETAP SAMA) ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #f5a623;
-            --primary-dark: #d4911e;
-            --primary-light: #f7c948;
-            --dark-bg: #0a0e1a;
-            --dark-card: #111827;
-            --dark-card-hover: #1a2332;
-            --dark-border: #1e293b;
-            --text-white: #ffffff;
-            --text-gray: #94a3b8;
-            --text-light: #cbd5e1;
+            --primary: #f5a623; --primary-dark: #d4911e; --primary-light: #f7c948;
+            --dark-bg: #0a0e1a; --dark-card: #111827; --dark-border: #1e293b;
+            --text-white: #ffffff; --text-gray: #94a3b8; --text-light: #cbd5e1;
             --gradient-gold: linear-gradient(135deg, #f5a623, #f7c948, #f5a623);
-            --gradient-dark: linear-gradient(180deg, #0a0e1a 0%, #111827 100%);
-            --shadow-gold: 0 4px 30px rgba(245, 166, 35, 0.3);
-            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --radius: 16px;
-            --radius-sm: 10px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-gold: 0 4px 30px rgba(245, 166, 35, 0.3); --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --radius: 16px; --radius-sm: 10px; --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: var(--text-white); overflow-x: hidden; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; } ul { list-style: none; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        /* ===== NAVBAR (TETAP SAMA) ===== */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; transition: var(--transition); background: transparent; }
+        .navbar.scrolled { background: rgba(10, 14, 26, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--dark-border); padding: 12px 0; }
+        .navbar .container { display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { width: 44px; height: 44px; background: var(--gradient-gold); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--dark-bg); font-weight: 800; }
+        .logo-text h2 { font-size: 18px; font-weight: 800; letter-spacing: 1px; line-height: 1.2; }
+        .logo-text span { font-size: 10px; color: var(--text-gray); font-weight: 400; letter-spacing: 0.5px; }
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-links a { padding: 8px 18px; font-size: 14px; font-weight: 500; color: var(--text-gray); border-radius: 8px; transition: var(--transition); position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-white); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 20px; height: 2px; background: var(--primary); border-radius: 2px; }
+        .btn-primary { background: var(--primary); color: var(--dark-bg); padding: 12px 28px; border-radius: 10px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; }
+        .btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+        .btn-outline { background: transparent; color: var(--primary); padding: 12px 28px; border-radius: 10px; font-weight: 600; font-size: 14px; border: 2px solid var(--primary); cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; }
+        .btn-outline:hover { background: var(--primary); color: var(--dark-bg); transform: translateY(-2px); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; z-index: 1001; }
+        .hamburger span { width: 28px; height: 2.5px; background: var(--text-white); border-radius: 2px; transition: var(--transition); }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-white);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul { list-style: none; }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 16px 0;
-            transition: var(--transition);
-            background: transparent;
-        }
-
-        .navbar.scrolled {
-            background: rgba(10, 14, 26, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--dark-border);
-            padding: 12px 0;
-        }
-
-        .navbar .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--gradient-gold);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: var(--dark-bg);
-            font-weight: 800;
-        }
-
-        .logo-text h2 {
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            line-height: 1.2;
-        }
-
-        .logo-text span {
-            font-size: 10px;
-            color: var(--text-gray);
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-links a {
-            padding: 8px 18px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-gray);
-            border-radius: 8px;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--text-white);
-        }
-
-        .nav-links a.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 2px;
-            background: var(--primary);
-            border-radius: 2px;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: var(--dark-bg);
-            padding: 12px 28px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-gold);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            padding: 12px 28px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 14px;
-            border: 2px solid var(--primary);
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: var(--dark-bg);
-            transform: translateY(-2px);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 8px;
-            z-index: 1001;
-        }
-
-        .hamburger span {
-            width: 28px;
-            height: 2.5px;
-            background: var(--text-white);
-            border-radius: 2px;
-            transition: var(--transition);
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* ===== HERO SECTION ===== */
+        /* ===== HERO SECTION (DIPERBAIKI) ===== */
         .hero {
             min-height: 100vh;
             position: relative;
             display: flex;
             align-items: center;
             overflow: hidden;
+            background: var(--dark-bg); /* Background dasar gelap */
         }
 
-        .hero-gradient {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 40%;
-            background: linear-gradient(135deg, rgba(10, 14, 26, 0.95) 0%, rgba(17, 24, 39, 0.9) 50%, rgba(10, 14, 26, 0.7) 100%);
-            z-index: 1;
-        }
-
-        .hero-bg {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 60%;
-            background: 
-                linear-gradient(90deg, rgba(10, 14, 26, 0.3) 0%, transparent 40%),
-                url('https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=1200&q=80') center right/cover no-repeat;
-            z-index: 2;
-        }
-
-        .hero-bg::after {
+        /* Gradient halus di sisi kiri (sekitar 40%) */
+        .hero::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 200px;
-            background: linear-gradient(transparent, var(--dark-bg));
+            left: 0; top: 0; bottom: 0;
+            width: 45%;
+            background: linear-gradient(90deg, rgba(10, 14, 26, 1) 0%, rgba(10, 14, 26, 0.85) 60%, transparent 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Efek glow halus di belakang mobil (kanan) */
+        .hero::after {
+            content: '';
+            position: absolute;
+            right: -5%; top: 50%;
+            transform: translateY(-50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(245, 166, 35, 0.08) 0%, transparent 70%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .hero-content {
             position: relative;
-            z-index: 3;
+            z-index: 2;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 40px;
             align-items: center;
-            padding: 140px 0 100px;
+            padding: 120px 0 80px;
+            width: 100%;
         }
 
-        .hero-text {
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(245, 166, 35, 0.15);
-            border: 1px solid rgba(245, 166, 35, 0.3);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 13px;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 28px;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-badge i {
-            font-size: 10px;
-        }
-
-        .hero-text h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(38px, 5vw, 58px);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 24px;
-        }
-
-        .hero-text h1 .highlight {
-            color: var(--primary);
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero-text p {
-            font-size: 17px;
-            color: var(--text-light);
-            max-width: 480px;
-            margin-bottom: 36px;
-            line-height: 1.7;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
+        .hero-text { animation: fadeInUp 1s ease; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 166, 35, 0.1); border: 1px solid rgba(245, 166, 35, 0.3); padding: 8px 18px; border-radius: 50px; font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 24px; }
+        .hero-badge i { font-size: 10px; }
+        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+        .hero-text h1 .highlight { color: var(--primary); }
+        .hero-text p { font-size: 17px; color: var(--text-gray); max-width: 480px; margin-bottom: 36px; line-height: 1.7; }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
 
         .hero-car {
             position: relative;
@@ -336,1633 +106,376 @@
 
         .hero-car img {
             width: 100%;
-            max-width: 520px;
-            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.6));
-            transform: perspective(1000px) rotateY(-8deg);
+            max-width: 580px;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
             transition: var(--transition);
         }
 
-        .hero-car img:hover {
-            transform: perspective(1000px) rotateY(0deg) scale(1.03);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* ===== BOOKING FORM ===== */
-        .booking-form {
-            position: relative;
-            z-index: 10;
-            margin-top: -40px;
-            margin-bottom: 60px;
-        }
-
-        .booking-form .form-container {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: var(--radius);
-            padding: 32px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr auto;
-            gap: 20px;
-            align-items: end;
-            box-shadow: var(--shadow-card);
-            backdrop-filter: blur(10px);
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-group label {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .form-group label i {
-            color: var(--primary);
-            font-size: 12px;
-        }
-
-        .form-group select,
-        .form-group input {
-            background: var(--dark-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: var(--radius-sm);
-            padding: 14px 16px;
-            color: var(--text-white);
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-            transition: var(--transition);
-            outline: none;
-        }
-
-        .form-group select:focus,
-        .form-group input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.1);
-        }
-
-        .form-group select option {
-            background: var(--dark-card);
-        }
-
-        .btn-search {
-            background: var(--primary);
-            color: var(--dark-bg);
-            padding: 14px 32px;
-            border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            white-space: nowrap;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            height: fit-content;
-        }
-
-        .btn-search:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-gold);
-        }
-
-        /* ===== PROMO BANNER ===== */
-        .promo-section {
-            margin-bottom: 60px;
-        }
-
-        .promo-banner {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
-            border: 2px solid var(--primary);
-            border-radius: var(--radius);
-            padding: 32px 40px;
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .promo-banner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(245, 166, 35, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .promo-badge {
-            background: var(--gradient-gold);
-            color: var(--dark-bg);
-            padding: 20px 28px;
-            border-radius: 16px;
-            text-align: center;
-            min-width: 140px;
-            position: relative;
-            z-index: 1;
-            box-shadow: var(--shadow-gold);
-        }
-
-        .promo-badge .label {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .promo-badge .value {
-            font-size: 36px;
-            font-weight: 900;
-            line-height: 1.1;
-        }
-
-        .promo-info {
-            flex: 1;
-            position: relative;
-            z-index: 1;
-        }
-
-        .promo-info h3 {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 6px;
-        }
-
-        .promo-info p {
-            font-size: 14px;
-            color: var(--text-gray);
-        }
-
-        .countdown {
-            display: flex;
-            gap: 12px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .countdown-item {
-            background: var(--dark-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: var(--radius-sm);
-            padding: 14px 18px;
-            text-align: center;
-            min-width: 70px;
-        }
-
-        .countdown-item .number {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .countdown-item .label {
-            font-size: 10px;
-            color: var(--text-gray);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
-        }
-
-        .btn-promo {
-            background: var(--primary);
-            color: var(--dark-bg);
-            padding: 16px 32px;
-            border-radius: var(--radius-sm);
-            font-weight: 800;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            white-space: nowrap;
-            font-family: 'Inter', sans-serif;
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-promo:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-gold);
-        }
-
-        /* ===== STATS SECTION ===== */
-        .stats-section {
-            margin-bottom: 80px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
-
-        .stat-card {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: var(--radius);
-            padding: 36px 24px;
-            text-align: center;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-gold);
-            transform: scaleX(0);
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(245, 166, 35, 0.3);
-            box-shadow: var(--shadow-card);
-        }
-
-        .stat-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .stat-icon {
-            width: 56px;
-            height: 56px;
-            background: rgba(245, 166, 35, 0.1);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            font-size: 24px;
-            color: var(--primary);
-        }
-
-        .stat-number {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--text-white);
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-gray);
-        }
-
-        /* ===== SECTION HEADER ===== */
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .section-header .subtitle {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-        }
-
-        .section-header .subtitle::before,
-        .section-header .subtitle::after {
-            content: '';
-            width: 30px;
-            height: 2px;
-            background: var(--primary);
-            border-radius: 2px;
-        }
-
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(28px, 3.5vw, 42px);
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-
-        .section-header p {
-            font-size: 16px;
-            color: var(--text-gray);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        /* ===== FLEET SECTION ===== */
-        .fleet-section {
-            margin-bottom: 80px;
-        }
-
-        .fleet-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-
-        .car-card {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .car-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(245, 166, 35, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        .car-badge {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            z-index: 2;
-        }
-
-        .car-badge.bestseller {
-            background: var(--primary);
-            color: var(--dark-bg);
-        }
-
-        .car-badge.promo {
-            background: #ef4444;
-            color: white;
-        }
-
-        .car-image {
-            background: linear-gradient(180deg, #1a2332 0%, var(--dark-card) 100%);
-            padding: 30px 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        .car-image img {
-            width: 100%;
-            max-width: 220px;
-            height: auto;
-            transition: var(--transition);
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
-        }
-
-        .car-card:hover .car-image img {
-            transform: scale(1.08);
-        }
-
-        .car-details {
-            padding: 24px;
-        }
-
-        .car-name {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .car-specs {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--dark-border);
-        }
-
-        .car-specs span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            color: var(--text-gray);
-        }
-
-        .car-specs span i {
-            color: var(--primary);
-            font-size: 12px;
-        }
-
-        .car-price {
-            margin-bottom: 16px;
-        }
-
-        .car-price .amount {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .car-price .period {
-            font-size: 13px;
-            color: var(--text-gray);
-        }
-
-        .btn-rent {
-            width: 100%;
-            background: var(--primary);
-            color: var(--dark-bg);
-            padding: 14px;
-            border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .btn-rent:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-gold);
-        }
-
-        .btn-view-all {
-            display: block;
-            margin: 0 auto;
-            background: transparent;
-            color: var(--text-gray);
-            padding: 14px 36px;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            font-size: 14px;
-            border: 1px solid var(--dark-border);
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .btn-view-all:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        /* ===== HOW TO ORDER ===== */
-        .howto-section {
-            margin-bottom: 80px;
-        }
-
-        .howto-steps {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 16px;
-            position: relative;
-        }
-
-        .howto-steps::before {
-            content: '';
-            position: absolute;
-            top: 44px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--primary));
-            opacity: 0.3;
-            z-index: 0;
-        }
-
-        .step-card {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            padding: 20px 12px;
-        }
-
-        .step-icon {
-            width: 72px;
-            height: 72px;
-            background: var(--dark-card);
-            border: 2px solid var(--dark-border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 28px;
-            color: var(--primary);
-            transition: var(--transition);
-        }
-
-        .step-card:hover .step-icon {
-            background: var(--primary);
-            color: var(--dark-bg);
-            border-color: var(--primary);
-            transform: scale(1.1);
-            box-shadow: var(--shadow-gold);
-        }
-
-        .step-number {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 6px;
-        }
-
-        .step-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .step-desc {
-            font-size: 13px;
-            color: var(--text-gray);
-            line-height: 1.5;
-        }
-
-        /* ===== TESTIMONIALS ===== */
-        .testimonial-section {
-            margin-bottom: 80px;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .testimonial-card {
-            background: var(--dark-card);
-            border: 1px solid var(--dark-border);
-            border-radius: var(--radius);
-            padding: 32px;
-            transition: var(--transition);
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(245, 166, 35, 0.2);
-        }
-
-        .stars {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 16px;
-        }
-
-        .stars i {
-            color: var(--primary);
-            font-size: 14px;
-        }
-
-        .testimonial-text {
-            font-size: 15px;
-            color: var(--text-light);
-            line-height: 1.7;
-            margin-bottom: 24px;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .author-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--gradient-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--dark-bg);
-            overflow: hidden;
-        }
-
-        .author-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .author-info h4 {
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .author-info span {
-            font-size: 13px;
-            color: var(--text-gray);
-        }
-
-        /* ===== CTA BANNER ===== */
-        .cta-section {
-            margin-bottom: 80px;
-        }
-
-        .cta-banner {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: var(--radius);
-            padding: 48px 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-banner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -5%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 50%;
-        }
-
-        .cta-banner::after {
-            content: '';
-            position: absolute;
-            bottom: -60%;
-            left: 10%;
-            width: 300px;
-            height: 300px;
-            background: rgba(0, 0, 0, 0.08);
-            border-radius: 50%;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--dark-bg);
-            margin-bottom: 8px;
-        }
-
-        .cta-content p {
-            font-size: 16px;
-            color: rgba(10, 14, 26, 0.7);
-            font-weight: 500;
-        }
-
-        .btn-whatsapp {
-            background: var(--dark-bg);
-            color: var(--text-white);
-            padding: 16px 32px;
-            border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 15px;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Inter', sans-serif;
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-whatsapp:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-whatsapp i {
-            font-size: 20px;
-            color: #25d366;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background: var(--dark-card);
-            border-top: 1px solid var(--dark-border);
-            padding: 60px 0 0;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
-            gap: 48px;
-            padding-bottom: 48px;
-        }
-
-        .footer-brand .logo {
-            margin-bottom: 16px;
-        }
-
-        .footer-brand p {
-            font-size: 14px;
-            color: var(--text-gray);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 12px;
-        }
-
-        .footer-social a {
-            width: 40px;
-            height: 40px;
-            background: var(--dark-bg);
-            border: 1px solid var(--dark-border);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-gray);
-            transition: var(--transition);
-        }
-
-        .footer-social a:hover {
-            background: var(--primary);
-            color: var(--dark-bg);
-            border-color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .footer-col h4 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 12px;
-        }
-
-        .footer-col h4::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 30px;
-            height: 2px;
-            background: var(--primary);
-            border-radius: 2px;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-col ul li a {
-            font-size: 14px;
-            color: var(--text-gray);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-col ul li a:hover {
-            color: var(--primary);
-            transform: translateX(4px);
-        }
-
-        .footer-col ul li a i {
-            font-size: 12px;
-            color: var(--primary);
-            width: 16px;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid var(--dark-border);
-            padding: 24px 0;
-            text-align: center;
-        }
-
-        .footer-bottom p {
-            font-size: 13px;
-            color: var(--text-gray);
-        }
-
-        .footer-bottom a {
-            color: var(--primary);
-        }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ===== RESPONSIVE ===== */
+        .hero-car img:hover { transform: scale(1.02); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* ===== BOOKING FORM (TETAP SAMA) ===== */
+        .booking-form { position: relative; z-index: 10; margin-top: -40px; margin-bottom: 60px; }
+        .booking-form .form-container { background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: var(--radius); padding: 32px; display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 20px; align-items: end; box-shadow: var(--shadow-card); backdrop-filter: blur(10px); }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-size: 13px; font-weight: 600; color: var(--text-light); display: flex; align-items: center; gap: 6px; }
+        .form-group label i { color: var(--primary); font-size: 12px; }
+        .form-group select, .form-group input { background: var(--dark-bg); border: 1px solid var(--dark-border); border-radius: var(--radius-sm); padding: 14px 16px; color: var(--text-white); font-size: 14px; font-family: 'Inter', sans-serif; transition: var(--transition); outline: none; }
+        .form-group select:focus, .form-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.1); }
+        .form-group select option { background: var(--dark-card); }
+        .btn-search { background: var(--primary); color: var(--dark-bg); padding: 14px 32px; border-radius: var(--radius-sm); font-weight: 700; font-size: 14px; border: none; cursor: pointer; transition: var(--transition); white-space: nowrap; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 8px; height: fit-content; }
+        .btn-search:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+
+        /* ===== PROMO BANNER (TETAP SAMA) ===== */
+        .promo-section { margin-bottom: 60px; }
+        .promo-banner { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%); border: 2px solid var(--primary); border-radius: var(--radius); padding: 32px 40px; display: flex; align-items: center; gap: 32px; position: relative; overflow: hidden; }
+        .promo-banner::before { content: ''; position: absolute; top: -50%; right: -10%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(245, 166, 35, 0.1) 0%, transparent 70%); border-radius: 50%; }
+        .promo-badge { background: var(--gradient-gold); color: var(--dark-bg); padding: 20px 28px; border-radius: 16px; text-align: center; min-width: 140px; position: relative; z-index: 1; box-shadow: var(--shadow-gold); }
+        .promo-badge .label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        .promo-badge .value { font-size: 36px; font-weight: 900; line-height: 1.1; }
+        .promo-info { flex: 1; position: relative; z-index: 1; }
+        .promo-info h3 { font-size: 20px; font-weight: 800; color: var(--primary); margin-bottom: 6px; }
+        .promo-info p { font-size: 14px; color: var(--text-gray); }
+        .countdown { display: flex; gap: 12px; position: relative; z-index: 1; }
+        .countdown-item { background: var(--dark-bg); border: 1px solid var(--dark-border); border-radius: var(--radius-sm); padding: 14px 18px; text-align: center; min-width: 70px; }
+        .countdown-item .number { font-size: 28px; font-weight: 800; color: var(--primary); line-height: 1; font-variant-numeric: tabular-nums; }
+        .countdown-item .label { font-size: 10px; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+        .btn-promo { background: var(--primary); color: var(--dark-bg); padding: 16px 32px; border-radius: var(--radius-sm); font-weight: 800; font-size: 14px; border: none; cursor: pointer; transition: var(--transition); white-space: nowrap; font-family: 'Inter', sans-serif; position: relative; z-index: 1; }
+        .btn-promo:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+
+        /* ===== STATS SECTION (TETAP SAMA) ===== */
+        .stats-section { margin-bottom: 80px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .stat-card { background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: var(--radius); padding: 36px 24px; text-align: center; transition: var(--transition); position: relative; overflow: hidden; }
+        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-gold); transform: scaleX(0); transition: var(--transition); }
+        .stat-card:hover { transform: translateY(-4px); border-color: rgba(245, 166, 35, 0.3); box-shadow: var(--shadow-card); }
+        .stat-card:hover::before { transform: scaleX(1); }
+        .stat-icon { width: 56px; height: 56px; background: rgba(245, 166, 35, 0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px; color: var(--primary); }
+        .stat-number { font-size: 28px; font-weight: 800; color: var(--text-white); margin-bottom: 4px; }
+        .stat-label { font-size: 14px; color: var(--text-gray); }
+
+        /* ===== SECTION HEADER (TETAP SAMA) ===== */
+        .section-header { text-align: center; margin-bottom: 48px; }
+        .section-header .subtitle { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .section-header .subtitle::before, .section-header .subtitle::after { content: ''; width: 30px; height: 2px; background: var(--primary); border-radius: 2px; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3.5vw, 42px); font-weight: 800; margin-bottom: 12px; }
+        .section-header p { font-size: 16px; color: var(--text-gray); max-width: 500px; margin: 0 auto; }
+
+        /* ===== FLEET SECTION (TETAP SAMA) ===== */
+        .fleet-section { margin-bottom: 80px; }
+        .fleet-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px; }
+        .car-card { background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: var(--radius); overflow: hidden; transition: var(--transition); position: relative; }
+        .car-card:hover { transform: translateY(-8px); border-color: rgba(245, 166, 35, 0.3); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); }
+        .car-badge { position: absolute; top: 16px; left: 16px; padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; z-index: 2; }
+        .car-badge.bestseller { background: var(--primary); color: var(--dark-bg); }
+        .car-badge.promo { background: #ef4444; color: white; }
+        .car-image { background: linear-gradient(180deg, #1a2332 0%, var(--dark-card) 100%); padding: 30px 20px; text-align: center; position: relative; }
+        .car-image img { width: 100%; max-width: 220px; height: auto; transition: var(--transition); filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3)); }
+        .car-card:hover .car-image img { transform: scale(1.08); }
+        .car-details { padding: 24px; }
+        .car-name { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+        .car-specs { display: flex; gap: 16px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--dark-border); }
+        .car-specs span { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-gray); }
+        .car-specs span i { color: var(--primary); font-size: 12px; }
+        .car-price { margin-bottom: 16px; }
+        .car-price .amount { font-size: 20px; font-weight: 800; color: var(--primary); }
+        .car-price .period { font-size: 13px; color: var(--text-gray); }
+        .btn-rent { width: 100%; background: var(--primary); color: var(--dark-bg); padding: 14px; border-radius: var(--radius-sm); font-weight: 700; font-size: 14px; border: none; cursor: pointer; transition: var(--transition); font-family: 'Inter', sans-serif; }
+        .btn-rent:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+        .btn-view-all { display: block; margin: 0 auto; background: transparent; color: var(--text-gray); padding: 14px 36px; border-radius: var(--radius-sm); font-weight: 600; font-size: 14px; border: 1px solid var(--dark-border); cursor: pointer; transition: var(--transition); font-family: 'Inter', sans-serif; }
+        .btn-view-all:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* ===== HOW TO ORDER (TETAP SAMA) ===== */
+        .howto-section { margin-bottom: 80px; }
+        .howto-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; position: relative; }
+        .howto-steps::before { content: ''; position: absolute; top: 44px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--primary)); opacity: 0.3; z-index: 0; }
+        .step-card { text-align: center; position: relative; z-index: 1; padding: 20px 12px; }
+        .step-icon { width: 72px; height: 72px; background: var(--dark-card); border: 2px solid var(--dark-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 28px; color: var(--primary); transition: var(--transition); }
+        .step-card:hover .step-icon { background: var(--primary); color: var(--dark-bg); border-color: var(--primary); transform: scale(1.1); box-shadow: var(--shadow-gold); }
+        .step-number { font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+        .step-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .step-desc { font-size: 13px; color: var(--text-gray); line-height: 1.5; }
+
+        /* ===== TESTIMONIALS (TETAP SAMA) ===== */
+        .testimonial-section { margin-bottom: 80px; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .testimonial-card { background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: var(--radius); padding: 32px; transition: var(--transition); }
+        .testimonial-card:hover { transform: translateY(-4px); border-color: rgba(245, 166, 35, 0.2); }
+        .stars { display: flex; gap: 4px; margin-bottom: 16px; }
+        .stars i { color: var(--primary); font-size: 14px; }
+        .testimonial-text { font-size: 15px; color: var(--text-light); line-height: 1.7; margin-bottom: 24px; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 14px; }
+        .author-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--gradient-gold); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--dark-bg); overflow: hidden; }
+        .author-info h4 { font-size: 15px; font-weight: 700; }
+        .author-info span { font-size: 13px; color: var(--text-gray); }
+
+        /* ===== CTA BANNER (TETAP SAMA) ===== */
+        .cta-section { margin-bottom: 80px; }
+        .cta-banner { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: var(--radius); padding: 48px 60px; display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden; }
+        .cta-banner::before { content: ''; position: absolute; top: -50%; right: -5%; width: 400px; height: 400px; background: rgba(255, 255, 255, 0.08); border-radius: 50%; }
+        .cta-banner::after { content: ''; position: absolute; bottom: -60%; left: 10%; width: 300px; height: 300px; background: rgba(0, 0, 0, 0.08); border-radius: 50%; }
+        .cta-content { position: relative; z-index: 1; }
+        .cta-content h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800; color: var(--dark-bg); margin-bottom: 8px; }
+        .cta-content p { font-size: 16px; color: rgba(10, 14, 26, 0.7); font-weight: 500; }
+        .btn-whatsapp { background: var(--dark-bg); color: var(--text-white); padding: 16px 32px; border-radius: var(--radius-sm); font-weight: 700; font-size: 15px; border: none; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px; font-family: 'Inter', sans-serif; position: relative; z-index: 1; }
+        .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+        .btn-whatsapp i { font-size: 20px; color: #25d366; }
+
+        /* ===== FOOTER (TETAP SAMA) ===== */
+        .footer { background: var(--dark-card); border-top: 1px solid var(--dark-border); padding: 60px 0 0; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
+        .footer-brand .logo { margin-bottom: 16px; }
+        .footer-brand p { font-size: 14px; color: var(--text-gray); line-height: 1.7; margin-bottom: 20px; }
+        .footer-social { display: flex; gap: 12px; }
+        .footer-social a { width: 40px; height: 40px; background: var(--dark-bg); border: 1px solid var(--dark-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-gray); transition: var(--transition); }
+        .footer-social a:hover { background: var(--primary); color: var(--dark-bg); border-color: var(--primary); transform: translateY(-3px); }
+        .footer-col h4 { font-size: 16px; font-weight: 700; margin-bottom: 20px; position: relative; padding-bottom: 12px; }
+        .footer-col h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 30px; height: 2px; background: var(--primary); border-radius: 2px; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { font-size: 14px; color: var(--text-gray); transition: var(--transition); display: flex; align-items: center; gap: 8px; }
+        .footer-col ul li a:hover { color: var(--primary); transform: translateX(4px); }
+        .footer-col ul li a i { font-size: 12px; color: var(--primary); width: 16px; }
+        .footer-bottom { border-top: 1px solid var(--dark-border); padding: 24px 0; text-align: center; }
+        .footer-bottom p { font-size: 13px; color: var(--text-gray); }
+        .footer-bottom a { color: var(--primary); }
+
+        /* ===== ANIMATIONS & RESPONSIVE (TETAP SAMA) ===== */
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
         @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-text p {
-                margin: 0 auto 36px;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .hero-car {
-                display: none;
-            }
-
-            .booking-form .form-container {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .fleet-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .howto-steps {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .howto-steps::before {
-                display: none;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text p { margin: 0 auto 36px; }
+            .hero-buttons { justify-content: center; }
+            .hero-car { display: none; } /* Sembunyikan mobil di tablet agar rapi */
+            .booking-form .form-container { grid-template-columns: 1fr 1fr; }
+            .fleet-grid { grid-template-columns: repeat(2, 1fr); }
+            .howto-steps { grid-template-columns: repeat(3, 1fr); }
+            .howto-steps::before { display: none; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
         @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 280px;
-                height: 100vh;
-                background: var(--dark-card);
-                flex-direction: column;
-                padding: 80px 32px 32px;
-                gap: 8px;
-                transition: var(--transition);
-                border-left: 1px solid var(--dark-border);
-            }
-
-            .nav-links.active {
-                right: 0;
-            }
-
-            .nav-links a {
-                width: 100%;
-                padding: 14px 18px;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .booking-form .form-container {
-                grid-template-columns: 1fr;
-            }
-
-            .promo-banner {
-                flex-direction: column;
-                text-align: center;
-                padding: 28px 24px;
-            }
-
-            .countdown {
-                justify-content: center;
-            }
-
-            .fleet-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin: 0 auto 40px;
-            }
-
-            .howto-steps {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .testimonial-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-banner {
-                flex-direction: column;
-                text-align: center;
-                gap: 24px;
-                padding: 36px 28px;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--dark-card); flex-direction: column; padding: 80px 32px 32px; gap: 8px; transition: var(--transition); border-left: 1px solid var(--dark-border); }
+            .nav-links.active { right: 0; }
+            .nav-links a { width: 100%; padding: 14px 18px; }
+            .hamburger { display: flex; }
+            .booking-form .form-container { grid-template-columns: 1fr; }
+            .promo-banner { flex-direction: column; text-align: center; padding: 28px 24px; }
+            .countdown { justify-content: center; }
+            .fleet-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto 40px; }
+            .howto-steps { grid-template-columns: repeat(2, 1fr); }
+            .testimonial-grid { grid-template-columns: 1fr; }
+            .cta-banner { flex-direction: column; text-align: center; gap: 24px; padding: 36px 28px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
         @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-
-            .stat-card {
-                padding: 24px 16px;
-            }
-
-            .howto-steps {
-                grid-template-columns: 1fr;
-            }
-
-            .countdown-item {
-                min-width: 56px;
-                padding: 10px 12px;
-            }
-
-            .countdown-item .number {
-                font-size: 22px;
-            }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .stat-card { padding: 24px 16px; }
+            .howto-steps { grid-template-columns: 1fr; }
+            .countdown-item { min-width: 56px; padding: 10px 12px; }
+            .countdown-item .number { font-size: 22px; }
         }
-
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--dark-bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--dark-border);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--dark-border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
     </style>
 </head>
 <body>
-
-    <!-- ===== NAVBAR ===== -->
+    <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="#" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-car"></i>
-                </div>
-                <div class="logo-text">
-                    <h2>RENTAL MOBIL</h2>
-                    <span>Mudah, Cepat & Terpercaya</span>
-                </div>
+                <div class="logo-icon"><i class="fas fa-car"></i></div>
+                <div class="logo-text"><h2>RENTAL MOBIL</h2><span>Mudah, Cepat & Terpercaya</span></div>
             </a>
-
             <div class="nav-links" id="navLinks">
                 <a href="#beranda" class="active">Beranda</a>
                 <a href="#armada">Armada</a>
                 <a href="#harga">Harga</a>
                 <a href="#tentang">Tentang</a>
                 <a href="#kontak">Kontak</a>
-                <button class="btn-primary" onclick="scrollToBooking()">
-                    <i class="fas fa-calendar-check"></i> Booking Sekarang
-                </button>
+                <button class="btn-primary" onclick="scrollToBooking()"><i class="fas fa-calendar-check"></i> Booking Sekarang</button>
             </div>
-
-            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
         </div>
     </nav>
 
-    <!-- ===== HERO SECTION ===== -->
+    <!-- HERO SECTION -->
     <section class="hero" id="beranda">
-        <div class="hero-gradient"></div>
-        <div class="hero-bg"></div>
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <div class="hero-badge">
-                        <i class="fas fa-star"></i>
-                        Terpercaya sejak 2014
-                    </div>
-                    <h1>
-                        Sewa Mobil<br>
-                        Mudah, Cepat &<br>
-                        <span class="highlight">Terpercaya</span>
-                    </h1>
+                    <div class="hero-badge"><i class="fas fa-star"></i> Terpercaya sejak 2014</div>
+                    <h1>Sewa Mobil<br>Mudah, Cepat &<br><span class="highlight">Terpercaya</span></h1>
                     <p>Tersedia berbagai pilihan mobil terbaik untuk kebutuhan perjalanan Anda. Armada terawat, harga bersahabat, layanan profesional.</p>
                     <div class="hero-buttons">
-                        <button class="btn-primary" onclick="scrollToBooking()">
-                            <i class="fas fa-search"></i> Cari Mobil
-                        </button>
-                        <button class="btn-outline" onclick="document.getElementById('armada').scrollIntoView({behavior:'smooth'})">
-                            <i class="fas fa-car"></i> Lihat Armada
-                        </button>
+                        <button class="btn-primary" onclick="scrollToBooking()"><i class="fas fa-search"></i> Cari Mobil</button>
+                        <button class="btn-outline" onclick="document.getElementById('armada').scrollIntoView({behavior:'smooth'})"><i class="fas fa-car"></i> Lihat Armada</button>
                     </div>
                 </div>
                 <div class="hero-car">
-                    <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=800&q=80" alt="SUV Premium" onerror="this.src='https://via.placeholder.com/520x350/1a2332/f5a623?text=Premium+SUV'">
+                    <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=800&q=80" alt="SUV Premium" onerror="this.src='https://via.placeholder.com/600x400/1a2332/f5a623?text=Premium+SUV'">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== BOOKING FORM ===== -->
+    <!-- BOOKING FORM -->
     <section class="booking-form" id="booking">
         <div class="container">
             <div class="form-container">
                 <div class="form-group">
                     <label><i class="fas fa-map-marker-alt"></i> Lokasi Jemput</label>
-                    <select>
-                        <option value="">Pilih lokasi jemput</option>
-                        <option>Pekanbaru - Bandara SSQ II</option>
-                        <option>Pekanbaru - Stasiun</option>
-                        <option>Pekanbaru - Hotel</option>
-                        <option>Pekanbaru - Alamat Lainnya</option>
-                    </select>
+                    <select><option value="">Pilih lokasi jemput</option><option>Pekanbaru - Bandara SSQ II</option><option>Pekanbaru - Stasiun</option><option>Pekanbaru - Hotel</option><option>Pekanbaru - Alamat Lainnya</option></select>
                 </div>
-                <div class="form-group">
-                    <label><i class="fas fa-calendar-alt"></i> Tanggal Jemput</label>
-                    <input type="date">
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-calendar-check"></i> Tanggal Kembali</label>
-                    <input type="date">
-                </div>
-                <button class="btn-search">
-                    <i class="fas fa-search"></i> CARI MOBIL
-                </button>
+                <div class="form-group"><label><i class="fas fa-calendar-alt"></i> Tanggal Jemput</label><input type="date"></div>
+                <div class="form-group"><label><i class="fas fa-calendar-check"></i> Tanggal Kembali</label><input type="date"></div>
+                <button class="btn-search"><i class="fas fa-search"></i> CARI MOBIL</button>
             </div>
         </div>
     </section>
 
-    <!-- ===== PROMO BANNER ===== -->
+    <!-- PROMO BANNER -->
     <section class="promo-section">
         <div class="container">
             <div class="promo-banner animate-on-scroll">
-                <div class="promo-badge">
-                    <div class="label">DISKON HINGGA</div>
-                    <div class="value">30%</div>
-                </div>
-                <div class="promo-info">
-                    <h3>🔥 PROMO SPESIAL HARI INI!</h3>
-                    <p>Sewa mobil sekarang dan dapatkan diskon spesial terbatas!</p>
-                </div>
+                <div class="promo-badge"><div class="label">DISKON HINGGA</div><div class="value">30%</div></div>
+                <div class="promo-info"><h3>🔥 PROMO SPESIAL HARI INI!</h3><p>Sewa mobil sekarang dan dapatkan diskon spesial terbatas!</p></div>
                 <div class="countdown">
-                    <div class="countdown-item">
-                        <div class="number" id="hours">08</div>
-                        <div class="label">Jam</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="number" id="minutes">45</div>
-                        <div class="label">Menit</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="number" id="seconds">32</div>
-                        <div class="label">Detik</div>
-                    </div>
+                    <div class="countdown-item"><div class="number" id="hours">08</div><div class="label">Jam</div></div>
+                    <div class="countdown-item"><div class="number" id="minutes">45</div><div class="label">Menit</div></div>
+                    <div class="countdown-item"><div class="number" id="seconds">32</div><div class="label">Detik</div></div>
                 </div>
                 <button class="btn-promo">AMBIL PROMO</button>
             </div>
         </div>
     </section>
 
-    <!-- ===== STATS ===== -->
+    <!-- STATS -->
     <section class="stats-section" id="tentang">
         <div class="container">
             <div class="stats-grid">
-                <div class="stat-card animate-on-scroll">
-                    <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
-                    <div class="stat-number" data-target="10">0</div>
-                    <div class="stat-label">Tahun Pengalaman</div>
-                </div>
-                <div class="stat-card animate-on-scroll">
-                    <div class="stat-icon"><i class="fas fa-users"></i></div>
-                    <div class="stat-number" data-target="5000">0</div>
-                    <div class="stat-label">Pelanggan Puas</div>
-                </div>
-                <div class="stat-card animate-on-scroll">
-                    <div class="stat-icon"><i class="fas fa-car-side"></i></div>
-                    <div class="stat-number" data-target="50">0</div>
-                    <div class="stat-label">Armada Terawat</div>
-                </div>
-                <div class="stat-card animate-on-scroll">
-                    <div class="stat-icon"><i class="fas fa-headset"></i></div>
-                    <div class="stat-number">24</div>
-                    <div class="stat-label">Jam Layanan Siap Bantu</div>
-                </div>
+                <div class="stat-card animate-on-scroll"><div class="stat-icon"><i class="fas fa-shield-alt"></i></div><div class="stat-number" data-target="10">0</div><div class="stat-label">Tahun Pengalaman</div></div>
+                <div class="stat-card animate-on-scroll"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-number" data-target="5000">0</div><div class="stat-label">Pelanggan Puas</div></div>
+                <div class="stat-card animate-on-scroll"><div class="stat-icon"><i class="fas fa-car-side"></i></div><div class="stat-number" data-target="50">0</div><div class="stat-label">Armada Terawat</div></div>
+                <div class="stat-card animate-on-scroll"><div class="stat-icon"><i class="fas fa-headset"></i></div><div class="stat-number">24</div><div class="stat-label">Jam Layanan Siap Bantu</div></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== FLEET ===== -->
+    <!-- FLEET -->
     <section class="fleet-section" id="armada">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <div class="subtitle">
-                    <span></span>Armada Kami<span></span>
-                </div>
+                <div class="subtitle"><span></span>Armada Kami<span></span></div>
                 <h2>Pilih Armada Terbaik Kami</h2>
                 <p>Berbagai pilihan mobil berkualitas untuk setiap kebutuhan perjalanan Anda</p>
             </div>
-
             <div class="fleet-grid">
-                <!-- Avanza -->
                 <div class="car-card animate-on-scroll">
                     <span class="car-badge bestseller">Best Seller</span>
-                    <div class="car-image">
-                        <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=400&q=80" alt="Avanza" onerror="this.src='https://via.placeholder.com/300x180/1a2332/ffffff?text=Avanza'">
-                    </div>
-                    <div class="car-details">
-                        <h3 class="car-name">Avanza</h3>
-                        <div class="car-specs">
-                            <span><i class="fas fa-cogs"></i> Manual</span>
-                            <span><i class="fas fa-users"></i> 6 Kursi</span>
-                        </div>
-                        <div class="car-price">
-                            <span class="amount">Rp 350.000</span>
-                            <span class="period">/ hari</span>
-                        </div>
-                        <button class="btn-rent">Sewa Sekarang</button>
-                    </div>
+                    <div class="car-image"><img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=400&q=80" alt="Avanza" onerror="this.src='https://via.placeholder.com/300x180/1a2332/ffffff?text=Avanza'"></div>
+                    <div class="car-details"><h3 class="car-name">Avanza</h3><div class="car-specs"><span><i class="fas fa-cogs"></i> Manual</span><span><i class="fas fa-users"></i> 6 Kursi</span></div><div class="car-price"><span class="amount">Rp 350.000</span><span class="period">/ hari</span></div><button class="btn-rent">Sewa Sekarang</button></div>
                 </div>
-
-                <!-- Innova Reborn -->
                 <div class="car-card animate-on-scroll">
                     <span class="car-badge promo">Promo</span>
-                    <div class="car-image">
-                        <img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400&q=80" alt="Innova Reborn" onerror="this.src='https://via.placeholder.com/300x180/1a2332/ffffff?text=Innova+Reborn'">
-                    </div>
-                    <div class="car-details">
-                        <h3 class="car-name">Innova Reborn</h3>
-                        <div class="car-specs">
-                            <span><i class="fas fa-cogs"></i> Automatic</span>
-                            <span><i class="fas fa-users"></i> 7 Kursi</span>
-                        </div>
-                        <div class="car-price">
-                            <span class="amount">Rp 650.000</span>
-                            <span class="period">/ hari</span>
-                        </div>
-                        <button class="btn-rent">Sewa Sekarang</button>
-                    </div>
+                    <div class="car-image"><img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400&q=80" alt="Innova Reborn" onerror="this.src='https://via.placeholder.com/300x180/1a2332/ffffff?text=Innova+Reborn'"></div>
+                    <div class="car-details"><h3 class="car-name">Innova Reborn</h3><div class="car-specs"><span><i class="fas fa-cogs"></i> Automatic</span><span><i class="fas fa-users"></i> 7 Kursi</span></div><div class="car-price"><span class="amount">Rp 650.000</span><span class="period">/ hari</span></div><button class="btn-rent">Sewa Sekarang</button></div>
                 </div>
-
-                <!-- Fortuner -->
                 <div class="car-card animate-on-scroll">
-                    <div class="car-image">
-                        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&q=80" alt="Fortuner" onerror="this.src='https://via.placeholder.com/300x180/1a2332/ffffff?text=Fortuner'">
-                    </div>
-                    <div class="car-details">
-                        <h3 class="car-name">Fortuner</h3>
-                        <div class="car-specs">
-                            <span><i class="fas fa-cogs"></i> Automatic</span>
-                            <span><i class="fas fa-users"></i> 7 Kursi</span>
-                        </div>
-                        <div class="car-price">
-                            <span class="amount">Rp 1.200.000</span>
-                            <span class="period">/ hari</span>
-                        </div>
-                        <button class="btn-rent">Sewa Sekarang</button>
-                    </div>
+                    <div class="car-image"><img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&q=80" alt="Fortuner" onerror="this.src='https://via.placeholder.com/300x180/1a2332/ffffff?text=Fortuner'"></div>
+                    <div class="car-details"><h3 class="car-name">Fortuner</h3><div class="car-specs"><span><i class="fas fa-cogs"></i> Automatic</span><span><i class="fas fa-users"></i> 7 Kursi</span></div><div class="car-price"><span class="amount">Rp 1.200.000</span><span class="period">/ hari</span></div><button class="btn-rent">Sewa Sekarang</button></div>
                 </div>
-
-                <!-- Xpander -->
                 <div class="car-card animate-on-scroll">
-                    <div class="car-image">
-                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0637?w=400&q=80" alt="Xpander" onerror="this.src='https://via.placeholder.com/300x180/1a2332/ffffff?text=Xpander'">
-                    </div>
-                    <div class="car-details">
-                        <h3 class="car-name">Xpander</h3>
-                        <div class="car-specs">
-                            <span><i class="fas fa-cogs"></i> Automatic</span>
-                            <span><i class="fas fa-users"></i> 6 Kursi</span>
-                        </div>
-                        <div class="car-price">
-                            <span class="amount">Rp 450.000</span>
-                            <span class="period">/ hari</span>
-                        </div>
-                        <button class="btn-rent">Sewa Sekarang</button>
-                    </div>
+                    <div class="car-image"><img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0637?w=400&q=80" alt="Xpander" onerror="this.src='https://via.placeholder.com/300x180/1a2332/ffffff?text=Xpander'"></div>
+                    <div class="car-details"><h3 class="car-name">Xpander</h3><div class="car-specs"><span><i class="fas fa-cogs"></i> Automatic</span><span><i class="fas fa-users"></i> 6 Kursi</span></div><div class="car-price"><span class="amount">Rp 450.000</span><span class="period">/ hari</span></div><button class="btn-rent">Sewa Sekarang</button></div>
                 </div>
             </div>
-
             <button class="btn-view-all">Lihat Semua Armada <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></button>
         </div>
     </section>
 
-    <!-- ===== HOW TO ORDER ===== -->
+    <!-- HOW TO ORDER -->
     <section class="howto-section">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <div class="subtitle">
-                    <span></span>Proses Mudah<span></span>
-                </div>
+                <div class="subtitle"><span></span>Proses Mudah<span></span></div>
                 <h2>Cara Order Mudah</h2>
                 <p>Hanya 5 langkah sederhana untuk menyewa mobil impian Anda</p>
             </div>
-
             <div class="howto-steps">
-                <div class="step-card animate-on-scroll">
-                    <div class="step-icon"><i class="fas fa-search"></i></div>
-                    <div class="step-number">01</div>
-                    <div class="step-title">Pilih Mobil</div>
-                    <div class="step-desc">Pilih mobil sesuai kebutuhan Anda</div>
-                </div>
-                <div class="step-card animate-on-scroll">
-                    <div class="step-icon"><i class="fas fa-calendar-alt"></i></div>
-                    <div class="step-number">02</div>
-                    <div class="step-title">Pilih Tanggal</div>
-                    <div class="step-desc">Tentukan tanggal jemput & kembali</div>
-                </div>
-                <div class="step-card animate-on-scroll">
-                    <div class="step-icon"><i class="fas fa-clipboard-list"></i></div>
-                    <div class="step-number">03</div>
-                    <div class="step-title">Isi Data</div>
-                    <div class="step-desc">Lengkapi data diri dan pemesanan</div>
-                </div>
-                <div class="step-card animate-on-scroll">
-                    <div class="step-icon"><i class="fas fa-check-circle"></i></div>
-                    <div class="step-number">04</div>
-                    <div class="step-title">Konfirmasi</div>
-                    <div class="step-desc">Konfirmasi pesanan melalui WhatsApp</div>
-                </div>
-                <div class="step-card animate-on-scroll">
-                    <div class="step-icon"><i class="fas fa-key"></i></div>
-                    <div class="step-number">05</div>
-                    <div class="step-title">Siap Jalan!</div>
-                    <div class="step-desc">Mobil siap digunakan untuk perjalanan Anda</div>
-                </div>
+                <div class="step-card animate-on-scroll"><div class="step-icon"><i class="fas fa-search"></i></div><div class="step-number">01</div><div class="step-title">Pilih Mobil</div><div class="step-desc">Pilih mobil sesuai kebutuhan Anda</div></div>
+                <div class="step-card animate-on-scroll"><div class="step-icon"><i class="fas fa-calendar-alt"></i></div><div class="step-number">02</div><div class="step-title">Pilih Tanggal</div><div class="step-desc">Tentukan tanggal jemput & kembali</div></div>
+                <div class="step-card animate-on-scroll"><div class="step-icon"><i class="fas fa-clipboard-list"></i></div><div class="step-number">03</div><div class="step-title">Isi Data</div><div class="step-desc">Lengkapi data diri dan pemesanan</div></div>
+                <div class="step-card animate-on-scroll"><div class="step-icon"><i class="fas fa-check-circle"></i></div><div class="step-number">04</div><div class="step-title">Konfirmasi</div><div class="step-desc">Konfirmasi pesanan melalui WhatsApp</div></div>
+                <div class="step-card animate-on-scroll"><div class="step-icon"><i class="fas fa-key"></i></div><div class="step-number">05</div><div class="step-title">Siap Jalan!</div><div class="step-desc">Mobil siap digunakan untuk perjalanan Anda</div></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== TESTIMONIALS ===== -->
+    <!-- TESTIMONIALS -->
     <section class="testimonial-section" id="harga">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <div class="subtitle">
-                    <span></span>Testimoni<span></span>
-                </div>
+                <div class="subtitle"><span></span>Testimoni<span></span></div>
                 <h2>Apa Kata Pelanggan Kami</h2>
                 <p>Kepuasan pelanggan adalah prioritas utama kami</p>
             </div>
-
             <div class="testimonial-grid">
-                <div class="testimonial-card animate-on-scroll">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Pelayanan sangat memuaskan, mobil bersih dan wangi. Pasti akan sewa lagi!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">R</div>
-                        <div class="author-info">
-                            <h4>Rudi Hartono</h4>
-                            <span>Pekanbaru</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card animate-on-scroll">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Harga terjangkau, proses cepat dan driver sangat ramah."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">D</div>
-                        <div class="author-info">
-                            <h4>Dewi Lestari</h4>
-                            <span>Pekanbaru</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card animate-on-scroll">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Armada lengkap dan kondisi mobil sangat terawat. Recommended!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">A</div>
-                        <div class="author-info">
-                            <h4>Andi Pratama</h4>
-                            <span>Pekanbaru</span>
-                        </div>
-                    </div>
-                </div>
+                <div class="testimonial-card animate-on-scroll"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="testimonial-text">"Pelayanan sangat memuaskan, mobil bersih dan wangi. Pasti akan sewa lagi!"</p><div class="testimonial-author"><div class="author-avatar">R</div><div class="author-info"><h4>Rudi Hartono</h4><span>Pekanbaru</span></div></div></div>
+                <div class="testimonial-card animate-on-scroll"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="testimonial-text">"Harga terjangkau, proses cepat dan driver sangat ramah."</p><div class="testimonial-author"><div class="author-avatar">D</div><div class="author-info"><h4>Dewi Lestari</h4><span>Pekanbaru</span></div></div></div>
+                <div class="testimonial-card animate-on-scroll"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="testimonial-text">"Armada lengkap dan kondisi mobil sangat terawat. Recommended!"</p><div class="testimonial-author"><div class="author-avatar">A</div><div class="author-info"><h4>Andi Pratama</h4><span>Pekanbaru</span></div></div></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== CTA BANNER ===== -->
+    <!-- CTA BANNER -->
     <section class="cta-section" id="kontak">
         <div class="container">
             <div class="cta-banner animate-on-scroll">
-                <div class="cta-content">
-                    <h2>BUTUH MOBIL SEKARANG?</h2>
-                    <p>Hubungi kami via WhatsApp, respon cepat 24 jam!</p>
-                </div>
-                <button class="btn-whatsapp" onclick="window.open('https://wa.me/6281234567890', '_blank')">
-                    <i class="fab fa-whatsapp"></i> Hubungi WhatsApp
-                </button>
+                <div class="cta-content"><h2>BUTUH MOBIL SEKARANG?</h2><p>Hubungi kami via WhatsApp, respon cepat 24 jam!</p></div>
+                <button class="btn-whatsapp" onclick="window.open('https://wa.me/6281234567890', '_blank')"><i class="fab fa-whatsapp"></i> Hubungi WhatsApp</button>
             </div>
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <div class="logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-car"></i>
-                        </div>
-                        <div class="logo-text">
-                            <h2>RENTAL MOBIL</h2>
-                            <span>Mudah, Cepat & Terpercaya</span>
-                        </div>
-                    </div>
+                    <div class="logo"><div class="logo-icon"><i class="fas fa-car"></i></div><div class="logo-text"><h2>RENTAL MOBIL</h2><span>Mudah, Cepat & Terpercaya</span></div></div>
                     <p>Solusi terbaik untuk kebutuhan transportasi Anda dengan armada nyaman dan harga bersahabat.</p>
-                    <div class="footer-social">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
+                    <div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a></div>
                 </div>
-
-                <div class="footer-col">
-                    <h4>Menu</h4>
-                    <ul>
-                        <li><a href="#beranda">Beranda</a></li>
-                        <li><a href="#armada">Armada</a></li>
-                        <li><a href="#harga">Harga</a></li>
-                        <li><a href="#tentang">Tentang</a></li>
-                        <li><a href="#kontak">Kontak</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Kontak Kami</h4>
-                    <ul>
-                        <li><a href="tel:081234567890"><i class="fas fa-phone"></i> 0812 3456 7890</a></li>
-                        <li><a href="mailto:info@rentalmobil.id"><i class="fas fa-envelope"></i> info@rentalmobil.id</a></li>
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Jl. Sudirman No. 123, Pekanbaru, Riau</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Ikuti Kami</h4>
-                    <ul>
-                        <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
-                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-                        <li><a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
-                    </ul>
-                </div>
+                <div class="footer-col"><h4>Menu</h4><ul><li><a href="#beranda">Beranda</a></li><li><a href="#armada">Armada</a></li><li><a href="#harga">Harga</a></li><li><a href="#tentang">Tentang</a></li><li><a href="#kontak">Kontak</a></li></ul></div>
+                <div class="footer-col"><h4>Kontak Kami</h4><ul><li><a href="tel:081234567890"><i class="fas fa-phone"></i> 0812 3456 7890</a></li><li><a href="mailto:info@rentalmobil.id"><i class="fas fa-envelope"></i> info@rentalmobil.id</a></li><li><a href="#"><i class="fas fa-map-marker-alt"></i> Jl. Sudirman No. 123, Pekanbaru, Riau</a></li></ul></div>
+                <div class="footer-col"><h4>Ikuti Kami</h4><ul><li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li><li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li><li><a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a></li></ul></div>
             </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2026 Rental Mobil. All Rights Reserved. Designed with <i class="fas fa-heart" style="color: var(--primary);"></i> in Pekanbaru</p>
-            </div>
+            <div class="footer-bottom"><p>&copy; 2026 Rental Mobil. All Rights Reserved. Designed with <i class="fas fa-heart" style="color: var(--primary);"></i> in Pekanbaru</p></div>
         </div>
     </footer>
 
-    <!-- ===== JAVASCRIPT ===== -->
     <script>
-        // Navbar scroll effect
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Mobile menu toggle
-        function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            const hamburger = document.getElementById('hamburger');
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        }
-
-        // Close mobile menu on link click
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('navLinks').classList.remove('active');
-                document.getElementById('hamburger').classList.remove('active');
-            });
-        });
-
-        // Scroll to booking
-        function scrollToBooking() {
-            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Countdown Timer
-        function startCountdown() {
-            let totalSeconds = 8 * 3600 + 45 * 60 + 32;
-
-            function updateTimer() {
-                if (totalSeconds <= 0) {
-                    totalSeconds = 24 * 3600; // Reset
-                }
-                totalSeconds--;
-
-                const h = Math.floor(totalSeconds / 3600);
-                const m = Math.floor((totalSeconds % 3600) / 60);
-                const s = totalSeconds % 60;
-
-                document.getElementById('hours').textContent = String(h).padStart(2, '0');
-                document.getElementById('minutes').textContent = String(m).padStart(2, '0');
-                document.getElementById('seconds').textContent = String(s).padStart(2, '0');
-            }
-
-            setInterval(updateTimer, 1000);
-        }
-        startCountdown();
-
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 100);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Counter animation for stats
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number[data-target]');
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                const duration = 2000;
-                const step = target / (duration / 16);
-                let current = 0;
-
-                const updateCounter = () => {
-                    current += step;
-                    if (current < target) {
-                        counter.textContent = Math.floor(current) + '+';
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target + '+';
-                    }
-                };
-                updateCounter();
-            });
-        }
-
-        // Trigger counter animation when stats section is visible
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-
-        const statsSection = document.querySelector('.stats-section');
-        if (statsSection) statsObserver.observe(statsSection);
-
-        // Active nav link on scroll
+        window.addEventListener('scroll', () => { if (window.scrollY > 50) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); } });
+        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); document.getElementById('hamburger').classList.toggle('active'); }
+        document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { document.getElementById('navLinks').classList.remove('active'); document.getElementById('hamburger').classList.remove('active'); }); });
+        function scrollToBooking() { document.getElementById('booking').scrollIntoView({ behavior: 'smooth' }); }
+        let totalSeconds = 8 * 3600 + 45 * 60 + 32;
+        setInterval(() => { if (totalSeconds <= 0) totalSeconds = 24 * 3600; totalSeconds--; const h = Math.floor(totalSeconds / 3600); const m = Math.floor((totalSeconds % 3600) / 60); const s = totalSeconds % 60; document.getElementById('hours').textContent = String(h).padStart(2, '0'); document.getElementById('minutes').textContent = String(m).padStart(2, '0'); document.getElementById('seconds').textContent = String(s).padStart(2, '0'); }, 1000);
+        const observer = new IntersectionObserver((entries) => { entries.forEach((entry, index) => { if (entry.isIntersecting) { setTimeout(() => { entry.target.classList.add('visible'); }, index * 100); observer.unobserve(entry.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => { observer.observe(el); });
+        function animateCounters() { const counters = document.querySelectorAll('.stat-number[data-target]'); counters.forEach(counter => { const target = parseInt(counter.getAttribute('data-target')); const duration = 2000; const step = target / (duration / 16); let current = 0; const updateCounter = () => { current += step; if (current < target) { counter.textContent = Math.floor(current) + '+'; requestAnimationFrame(updateCounter); } else { counter.textContent = target + '+'; } }; updateCounter(); }); }
+        const statsObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { animateCounters(); statsObserver.unobserve(entry.target); } }); }, { threshold: 0.3 });
+        const statsSection = document.querySelector('.stats-section'); if (statsSection) statsObserver.observe(statsSection);
         const sections = document.querySelectorAll('section[id]');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                if (window.scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Smooth reveal on page load
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '1';
-        });
+        window.addEventListener('scroll', () => { let current = ''; sections.forEach(section => { const sectionTop = section.offsetTop - 100; if (window.scrollY >= sectionTop) { current = section.getAttribute('id'); } }); document.querySelectorAll('.nav-links a').forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); } }); });
+        window.addEventListener('load', () => { document.body.style.opacity = '1'; });
     </script>
 </body>
 </html>
