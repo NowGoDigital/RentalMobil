@@ -34,9 +34,7 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -46,11 +44,7 @@
             line-height: 1.6;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
+        a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
 
         .container {
@@ -62,9 +56,7 @@
         /* ===== NAVBAR ===== */
         .navbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
             padding: 16px 0;
             transition: var(--transition);
@@ -85,49 +77,24 @@
             justify-content: space-between;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .logo { display: flex; align-items: center; gap: 10px; }
 
         .logo-icon {
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             background: var(--gradient-gold);
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: var(--dark-bg);
-            font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; color: var(--dark-bg); font-weight: 800;
         }
 
-        .logo-text h2 {
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            line-height: 1.2;
-        }
+        .logo-text h2 { font-size: 18px; font-weight: 800; letter-spacing: 1px; line-height: 1.2; }
+        .logo-text span { font-size: 10px; color: var(--text-gray); font-weight: 400; letter-spacing: 0.5px; }
 
-        .logo-text span {
-            font-size: 10px;
-            color: var(--text-gray);
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .nav-links { display: flex; align-items: center; gap: 8px; }
 
         .nav-links a {
             padding: 8px 18px;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 14px; font-weight: 500;
             color: var(--text-gray);
             border-radius: 8px;
             transition: var(--transition);
@@ -135,18 +102,14 @@
         }
 
         .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--text-white);
-        }
+        .nav-links a.active { color: var(--text-white); }
 
         .nav-links a.active::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 50%;
+            bottom: 0; left: 50%;
             transform: translateX(-50%);
-            width: 20px;
-            height: 2px;
+            width: 20px; height: 2px;
             background: var(--primary);
             border-radius: 2px;
         }
@@ -156,14 +119,10 @@
             color: var(--dark-bg);
             padding: 12px 28px;
             border-radius: 10px;
-            font-weight: 700;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
+            font-weight: 700; font-size: 14px;
+            border: none; cursor: pointer;
             transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            display: inline-flex; align-items: center; gap: 8px;
             font-family: 'Inter', sans-serif;
         }
 
@@ -178,14 +137,11 @@
             color: var(--primary);
             padding: 12px 28px;
             border-radius: 10px;
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 600; font-size: 14px;
             border: 2px solid var(--primary);
             cursor: pointer;
             transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            display: inline-flex; align-items: center; gap: 8px;
             font-family: 'Inter', sans-serif;
         }
 
@@ -205,26 +161,17 @@
         }
 
         .hamburger span {
-            width: 28px;
-            height: 2.5px;
+            width: 28px; height: 2.5px;
             background: var(--text-white);
             border-radius: 2px;
             transition: var(--transition);
         }
 
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* ===== HERO SECTION (DIPERBAIKI) ===== */
+        /* ===== HERO SECTION (DIPERBAIKI TOTAL) ===== */
         .hero {
             min-height: 100vh;
             position: relative;
@@ -234,45 +181,56 @@
             background: var(--dark-bg);
         }
 
-        /* Efek Gradient Halus di Sisi Kiri */
-        .hero::before {
-            content: '';
+        /* Layer 1: Foto mobil sebagai background di sebelah kanan */
+        .hero-bg-image {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 55%;
+            background: 
+                linear-gradient(90deg, var(--dark-bg) 0%, transparent 15%),
+                url('https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=1400&q=80') center right / cover no-repeat;
+            z-index: 1;
+        }
+
+        /* Layer 2: Gradient gelap di sebelah kiri untuk area teks */
+        .hero-gradient {
             position: absolute;
             left: 0;
             top: 0;
             bottom: 0;
-            width: 50%;
-            background: linear-gradient(90deg, rgba(10, 14, 26, 1) 0%, rgba(10, 14, 26, 0.9) 50%, transparent 100%);
-            z-index: 1;
-            pointer-events: none;
+            width: 55%;
+            background: linear-gradient(90deg, 
+                rgba(10, 14, 26, 1) 0%, 
+                rgba(10, 14, 26, 0.95) 40%, 
+                rgba(10, 14, 26, 0.7) 70%, 
+                transparent 100%);
+            z-index: 2;
         }
 
-        /* Efek Glow Halus di Belakang Mobil (Kanan) */
+        /* Layer 3: Gradient bawah untuk transisi ke section berikutnya */
         .hero::after {
             content: '';
             position: absolute;
+            bottom: 0;
+            left: 0;
             right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(245, 166, 35, 0.06) 0%, transparent 70%);
-            z-index: 1;
+            height: 180px;
+            background: linear-gradient(transparent, var(--dark-bg));
+            z-index: 3;
             pointer-events: none;
         }
 
         .hero-content {
             position: relative;
-            z-index: 2;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-            padding: 120px 0 80px;
+            z-index: 4;
             width: 100%;
+            padding: 140px 0 100px;
         }
 
         .hero-text {
+            max-width: 560px;
             animation: fadeInUp 1s ease;
         }
 
@@ -290,9 +248,7 @@
             margin-bottom: 24px;
         }
 
-        .hero-badge i {
-            font-size: 10px;
-        }
+        .hero-badge i { font-size: 10px; }
 
         .hero-text h1 {
             font-family: 'Playfair Display', serif;
@@ -302,10 +258,7 @@
             margin-bottom: 20px;
         }
 
-        .hero-text h1 .highlight {
-            color: var(--primary);
-            position: relative;
-        }
+        .hero-text h1 .highlight { color: var(--primary); }
 
         .hero-text p {
             font-size: 17px;
@@ -319,25 +272,6 @@
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
-        }
-
-        .hero-car {
-            position: relative;
-            animation: fadeInRight 1s ease 0.3s both;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
-        .hero-car img {
-            width: 100%;
-            max-width: 580px;
-            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
-            transition: var(--transition);
-        }
-
-        .hero-car img:hover {
-            transform: scale(1.02);
         }
 
         @keyframes fadeInUp {
@@ -371,25 +305,15 @@
             backdrop-filter: blur(10px);
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
 
         .form-group label {
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 13px; font-weight: 600;
             color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            display: flex; align-items: center; gap: 6px;
         }
 
-        .form-group label i {
-            color: var(--primary);
-            font-size: 12px;
-        }
+        .form-group label i { color: var(--primary); font-size: 12px; }
 
         .form-group select,
         .form-group input {
@@ -410,25 +334,19 @@
             box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.1);
         }
 
-        .form-group select option {
-            background: var(--dark-card);
-        }
+        .form-group select option { background: var(--dark-card); }
 
         .btn-search {
             background: var(--primary);
             color: var(--dark-bg);
             padding: 14px 32px;
             border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
+            font-weight: 700; font-size: 14px;
+            border: none; cursor: pointer;
             transition: var(--transition);
             white-space: nowrap;
             font-family: 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 8px;
             height: fit-content;
         }
 
@@ -439,9 +357,7 @@
         }
 
         /* ===== PROMO BANNER ===== */
-        .promo-section {
-            margin-bottom: 60px;
-        }
+        .promo-section { margin-bottom: 60px; }
 
         .promo-banner {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
@@ -458,10 +374,8 @@
         .promo-banner::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 300px;
-            height: 300px;
+            top: -50%; right: -10%;
+            width: 300px; height: 300px;
             background: radial-gradient(circle, rgba(245, 166, 35, 0.1) 0%, transparent 70%);
             border-radius: 50%;
         }
@@ -478,43 +392,14 @@
             box-shadow: var(--shadow-gold);
         }
 
-        .promo-badge .label {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        .promo-badge .label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        .promo-badge .value { font-size: 36px; font-weight: 900; line-height: 1.1; }
 
-        .promo-badge .value {
-            font-size: 36px;
-            font-weight: 900;
-            line-height: 1.1;
-        }
+        .promo-info { flex: 1; position: relative; z-index: 1; }
+        .promo-info h3 { font-size: 20px; font-weight: 800; color: var(--primary); margin-bottom: 6px; }
+        .promo-info p { font-size: 14px; color: var(--text-gray); }
 
-        .promo-info {
-            flex: 1;
-            position: relative;
-            z-index: 1;
-        }
-
-        .promo-info h3 {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 6px;
-        }
-
-        .promo-info p {
-            font-size: 14px;
-            color: var(--text-gray);
-        }
-
-        .countdown {
-            display: flex;
-            gap: 12px;
-            position: relative;
-            z-index: 1;
-        }
+        .countdown { display: flex; gap: 12px; position: relative; z-index: 1; }
 
         .countdown-item {
             background: var(--dark-bg);
@@ -526,8 +411,7 @@
         }
 
         .countdown-item .number {
-            font-size: 28px;
-            font-weight: 800;
+            font-size: 28px; font-weight: 800;
             color: var(--primary);
             line-height: 1;
             font-variant-numeric: tabular-nums;
@@ -546,10 +430,8 @@
             color: var(--dark-bg);
             padding: 16px 32px;
             border-radius: var(--radius-sm);
-            font-weight: 800;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
+            font-weight: 800; font-size: 14px;
+            border: none; cursor: pointer;
             transition: var(--transition);
             white-space: nowrap;
             font-family: 'Inter', sans-serif;
@@ -564,15 +446,8 @@
         }
 
         /* ===== STATS SECTION ===== */
-        .stats-section {
-            margin-bottom: 80px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
+        .stats-section { margin-bottom: 80px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 
         .stat-card {
             background: var(--dark-card);
@@ -588,9 +463,7 @@
         .stat-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 3px;
             background: var(--gradient-gold);
             transform: scaleX(0);
@@ -603,58 +476,35 @@
             box-shadow: var(--shadow-card);
         }
 
-        .stat-card:hover::before {
-            transform: scaleX(1);
-        }
+        .stat-card:hover::before { transform: scaleX(1); }
 
         .stat-icon {
-            width: 56px;
-            height: 56px;
+            width: 56px; height: 56px;
             background: rgba(245, 166, 35, 0.1);
             border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             margin: 0 auto 16px;
-            font-size: 24px;
-            color: var(--primary);
+            font-size: 24px; color: var(--primary);
         }
 
-        .stat-number {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--text-white);
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-gray);
-        }
+        .stat-number { font-size: 28px; font-weight: 800; color: var(--text-white); margin-bottom: 4px; }
+        .stat-label { font-size: 14px; color: var(--text-gray); }
 
         /* ===== SECTION HEADER ===== */
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
+        .section-header { text-align: center; margin-bottom: 48px; }
 
         .section-header .subtitle {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            display: inline-flex; align-items: center; gap: 8px;
             color: var(--primary);
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 13px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px;
             margin-bottom: 12px;
         }
 
         .section-header .subtitle::before,
         .section-header .subtitle::after {
             content: '';
-            width: 30px;
-            height: 2px;
+            width: 30px; height: 2px;
             background: var(--primary);
             border-radius: 2px;
         }
@@ -667,23 +517,13 @@
         }
 
         .section-header p {
-            font-size: 16px;
-            color: var(--text-gray);
-            max-width: 500px;
-            margin: 0 auto;
+            font-size: 16px; color: var(--text-gray);
+            max-width: 500px; margin: 0 auto;
         }
 
         /* ===== FLEET SECTION ===== */
-        .fleet-section {
-            margin-bottom: 80px;
-        }
-
-        .fleet-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
-        }
+        .fleet-section { margin-bottom: 80px; }
+        .fleet-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px; }
 
         .car-card {
             background: var(--dark-card);
@@ -702,26 +542,16 @@
 
         .car-badge {
             position: absolute;
-            top: 16px;
-            left: 16px;
+            top: 16px; left: 16px;
             padding: 6px 14px;
             border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px;
             z-index: 2;
         }
 
-        .car-badge.bestseller {
-            background: var(--primary);
-            color: var(--dark-bg);
-        }
-
-        .car-badge.promo {
-            background: #ef4444;
-            color: white;
-        }
+        .car-badge.bestseller { background: var(--primary); color: var(--dark-bg); }
+        .car-badge.promo { background: #ef4444; color: white; }
 
         .car-image {
             background: linear-gradient(180deg, #1a2332 0%, var(--dark-card) 100%);
@@ -731,62 +561,32 @@
         }
 
         .car-image img {
-            width: 100%;
-            max-width: 220px;
-            height: auto;
+            width: 100%; max-width: 220px; height: auto;
             transition: var(--transition);
             filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
         }
 
-        .car-card:hover .car-image img {
-            transform: scale(1.08);
-        }
+        .car-card:hover .car-image img { transform: scale(1.08); }
 
-        .car-details {
-            padding: 24px;
-        }
-
-        .car-name {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
+        .car-details { padding: 24px; }
+        .car-name { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
 
         .car-specs {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
+            display: flex; gap: 16px;
+            margin-bottom: 16px; padding-bottom: 16px;
             border-bottom: 1px solid var(--dark-border);
         }
 
         .car-specs span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            color: var(--text-gray);
+            display: flex; align-items: center; gap: 6px;
+            font-size: 13px; color: var(--text-gray);
         }
 
-        .car-specs span i {
-            color: var(--primary);
-            font-size: 12px;
-        }
+        .car-specs span i { color: var(--primary); font-size: 12px; }
 
-        .car-price {
-            margin-bottom: 16px;
-        }
-
-        .car-price .amount {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .car-price .period {
-            font-size: 13px;
-            color: var(--text-gray);
-        }
+        .car-price { margin-bottom: 16px; }
+        .car-price .amount { font-size: 20px; font-weight: 800; color: var(--primary); }
+        .car-price .period { font-size: 13px; color: var(--text-gray); }
 
         .btn-rent {
             width: 100%;
@@ -794,10 +594,8 @@
             color: var(--dark-bg);
             padding: 14px;
             border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
+            font-weight: 700; font-size: 14px;
+            border: none; cursor: pointer;
             transition: var(--transition);
             font-family: 'Inter', sans-serif;
         }
@@ -815,8 +613,7 @@
             color: var(--text-gray);
             padding: 14px 36px;
             border-radius: var(--radius-sm);
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 600; font-size: 14px;
             border: 1px solid var(--dark-border);
             cursor: pointer;
             transition: var(--transition);
@@ -829,9 +626,7 @@
         }
 
         /* ===== HOW TO ORDER ===== */
-        .howto-section {
-            margin-bottom: 80px;
-        }
+        .howto-section { margin-bottom: 80px; }
 
         .howto-steps {
             display: grid;
@@ -843,34 +638,23 @@
         .howto-steps::before {
             content: '';
             position: absolute;
-            top: 44px;
-            left: 10%;
-            right: 10%;
+            top: 44px; left: 10%; right: 10%;
             height: 2px;
             background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--primary));
             opacity: 0.3;
             z-index: 0;
         }
 
-        .step-card {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            padding: 20px 12px;
-        }
+        .step-card { text-align: center; position: relative; z-index: 1; padding: 20px 12px; }
 
         .step-icon {
-            width: 72px;
-            height: 72px;
+            width: 72px; height: 72px;
             background: var(--dark-card);
             border: 2px solid var(--dark-border);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             margin: 0 auto 20px;
-            font-size: 28px;
-            color: var(--primary);
+            font-size: 28px; color: var(--primary);
             transition: var(--transition);
         }
 
@@ -882,35 +666,13 @@
             box-shadow: var(--shadow-gold);
         }
 
-        .step-number {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 6px;
-        }
-
-        .step-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .step-desc {
-            font-size: 13px;
-            color: var(--text-gray);
-            line-height: 1.5;
-        }
+        .step-number { font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+        .step-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .step-desc { font-size: 13px; color: var(--text-gray); line-height: 1.5; }
 
         /* ===== TESTIMONIALS ===== */
-        .testimonial-section {
-            margin-bottom: 80px;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
+        .testimonial-section { margin-bottom: 80px; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
         .testimonial-card {
             background: var(--dark-card);
@@ -925,16 +687,8 @@
             border-color: rgba(245, 166, 35, 0.2);
         }
 
-        .stars {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 16px;
-        }
-
-        .stars i {
-            color: var(--primary);
-            font-size: 14px;
-        }
+        .stars { display: flex; gap: 4px; margin-bottom: 16px; }
+        .stars i { color: var(--primary); font-size: 14px; }
 
         .testimonial-text {
             font-size: 15px;
@@ -944,46 +698,23 @@
             font-style: italic;
         }
 
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+        .testimonial-author { display: flex; align-items: center; gap: 14px; }
 
         .author-avatar {
-            width: 48px;
-            height: 48px;
+            width: 48px; height: 48px;
             border-radius: 50%;
             background: var(--gradient-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 700;
             color: var(--dark-bg);
             overflow: hidden;
         }
 
-        .author-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .author-info h4 {
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .author-info span {
-            font-size: 13px;
-            color: var(--text-gray);
-        }
+        .author-info h4 { font-size: 15px; font-weight: 700; }
+        .author-info span { font-size: 13px; color: var(--text-gray); }
 
         /* ===== CTA BANNER ===== */
-        .cta-section {
-            margin-bottom: 80px;
-        }
+        .cta-section { margin-bottom: 80px; }
 
         .cta-banner {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -999,10 +730,8 @@
         .cta-banner::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -5%;
-            width: 400px;
-            height: 400px;
+            top: -50%; right: -5%;
+            width: 400px; height: 400px;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 50%;
         }
@@ -1010,46 +739,25 @@
         .cta-banner::after {
             content: '';
             position: absolute;
-            bottom: -60%;
-            left: 10%;
-            width: 300px;
-            height: 300px;
+            bottom: -60%; left: 10%;
+            width: 300px; height: 300px;
             background: rgba(0, 0, 0, 0.08);
             border-radius: 50%;
         }
 
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--dark-bg);
-            margin-bottom: 8px;
-        }
-
-        .cta-content p {
-            font-size: 16px;
-            color: rgba(10, 14, 26, 0.7);
-            font-weight: 500;
-        }
+        .cta-content { position: relative; z-index: 1; }
+        .cta-content h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800; color: var(--dark-bg); margin-bottom: 8px; }
+        .cta-content p { font-size: 16px; color: rgba(10, 14, 26, 0.7); font-weight: 500; }
 
         .btn-whatsapp {
             background: var(--dark-bg);
             color: var(--text-white);
             padding: 16px 32px;
             border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 15px;
-            border: none;
-            cursor: pointer;
+            font-weight: 700; font-size: 15px;
+            border: none; cursor: pointer;
             transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            display: inline-flex; align-items: center; gap: 10px;
             font-family: 'Inter', sans-serif;
             position: relative;
             z-index: 1;
@@ -1060,10 +768,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .btn-whatsapp i {
-            font-size: 20px;
-            color: #25d366;
-        }
+        .btn-whatsapp i { font-size: 20px; color: #25d366; }
 
         /* ===== FOOTER ===== */
         .footer {
@@ -1079,31 +784,17 @@
             padding-bottom: 48px;
         }
 
-        .footer-brand .logo {
-            margin-bottom: 16px;
-        }
+        .footer-brand .logo { margin-bottom: 16px; }
+        .footer-brand p { font-size: 14px; color: var(--text-gray); line-height: 1.7; margin-bottom: 20px; }
 
-        .footer-brand p {
-            font-size: 14px;
-            color: var(--text-gray);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 12px;
-        }
+        .footer-social { display: flex; gap: 12px; }
 
         .footer-social a {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             background: var(--dark-bg);
             border: 1px solid var(--dark-border);
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             color: var(--text-gray);
             transition: var(--transition);
         }
@@ -1116,8 +807,7 @@
         }
 
         .footer-col h4 {
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 16px; font-weight: 700;
             margin-bottom: 20px;
             position: relative;
             padding-bottom: 12px;
@@ -1126,25 +816,18 @@
         .footer-col h4::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 30px;
-            height: 2px;
+            bottom: 0; left: 0;
+            width: 30px; height: 2px;
             background: var(--primary);
             border-radius: 2px;
         }
 
-        .footer-col ul li {
-            margin-bottom: 12px;
-        }
+        .footer-col ul li { margin-bottom: 12px; }
 
         .footer-col ul li a {
-            font-size: 14px;
-            color: var(--text-gray);
+            font-size: 14px; color: var(--text-gray);
             transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 8px;
         }
 
         .footer-col ul li a:hover {
@@ -1152,11 +835,7 @@
             transform: translateX(4px);
         }
 
-        .footer-col ul li a i {
-            font-size: 12px;
-            color: var(--primary);
-            width: 16px;
-        }
+        .footer-col ul li a i { font-size: 12px; color: var(--primary); width: 16px; }
 
         .footer-bottom {
             border-top: 1px solid var(--dark-border);
@@ -1164,26 +843,10 @@
             text-align: center;
         }
 
-        .footer-bottom p {
-            font-size: 13px;
-            color: var(--text-gray);
-        }
-
-        .footer-bottom a {
-            color: var(--primary);
-        }
+        .footer-bottom p { font-size: 13px; color: var(--text-gray); }
+        .footer-bottom a { color: var(--primary); }
 
         /* ===== ANIMATIONS ===== */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -1202,46 +865,25 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .hero-text p {
-                margin: 0 auto 36px;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
-            .hero-car {
-                display: none;
-            }
-            .booking-form .form-container {
-                grid-template-columns: 1fr 1fr;
-            }
-            .fleet-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .howto-steps {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .howto-steps::before {
-                display: none;
-            }
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .hero-bg-image { width: 50%; }
+            .hero-gradient { width: 50%; }
+            .booking-form .form-container { grid-template-columns: 1fr 1fr; }
+            .fleet-grid { grid-template-columns: repeat(2, 1fr); }
+            .howto-steps { grid-template-columns: repeat(3, 1fr); }
+            .howto-steps::before { display: none; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
+            .hero-bg-image { display: none; }
+            .hero-gradient { width: 100%; }
+            .hero-text { max-width: 100%; }
+
             .nav-links {
                 position: fixed;
-                top: 0;
-                right: -100%;
-                width: 280px;
-                height: 100vh;
+                top: 0; right: -100%;
+                width: 280px; height: 100vh;
                 background: var(--dark-card);
                 flex-direction: column;
                 padding: 80px 32px 32px;
@@ -1249,9 +891,11 @@
                 transition: var(--transition);
                 border-left: 1px solid var(--dark-border);
             }
+
             .nav-links.active { right: 0; }
             .nav-links a { width: 100%; padding: 14px 18px; }
             .hamburger { display: flex; }
+
             .booking-form .form-container { grid-template-columns: 1fr; }
             .promo-banner { flex-direction: column; text-align: center; padding: 28px 24px; }
             .countdown { justify-content: center; }
@@ -1284,9 +928,7 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="#" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-car"></i>
-                </div>
+                <div class="logo-icon"><i class="fas fa-car"></i></div>
                 <div class="logo-text">
                     <h2>RENTAL MOBIL</h2>
                     <span>Mudah, Cepat & Terpercaya</span>
@@ -1305,15 +947,18 @@
             </div>
 
             <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 
     <!-- ===== HERO SECTION ===== -->
     <section class="hero" id="beranda">
+        <!-- Background foto mobil di kanan -->
+        <div class="hero-bg-image"></div>
+        <!-- Gradient gelap di kiri untuk area teks -->
+        <div class="hero-gradient"></div>
+        
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
@@ -1335,9 +980,6 @@
                             <i class="fas fa-car"></i> Lihat Armada
                         </button>
                     </div>
-                </div>
-                <div class="hero-car">
-                    <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=800&q=80" alt="SUV Premium" onerror="this.src='https://via.placeholder.com/600x400/1a2332/f5a623?text=Premium+SUV'">
                 </div>
             </div>
         </div>
@@ -1385,18 +1027,9 @@
                     <p>Sewa mobil sekarang dan dapatkan diskon spesial terbatas!</p>
                 </div>
                 <div class="countdown">
-                    <div class="countdown-item">
-                        <div class="number" id="hours">08</div>
-                        <div class="label">Jam</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="number" id="minutes">45</div>
-                        <div class="label">Menit</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="number" id="seconds">32</div>
-                        <div class="label">Detik</div>
-                    </div>
+                    <div class="countdown-item"><div class="number" id="hours">08</div><div class="label">Jam</div></div>
+                    <div class="countdown-item"><div class="number" id="minutes">45</div><div class="label">Menit</div></div>
+                    <div class="countdown-item"><div class="number" id="seconds">32</div><div class="label">Detik</div></div>
                 </div>
                 <button class="btn-promo">AMBIL PROMO</button>
             </div>
@@ -1435,15 +1068,12 @@
     <section class="fleet-section" id="armada">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <div class="subtitle">
-                    <span></span>Armada Kami<span></span>
-                </div>
+                <div class="subtitle"><span></span>Armada Kami<span></span></div>
                 <h2>Pilih Armada Terbaik Kami</h2>
                 <p>Berbagai pilihan mobil berkualitas untuk setiap kebutuhan perjalanan Anda</p>
             </div>
 
             <div class="fleet-grid">
-                <!-- Avanza -->
                 <div class="car-card animate-on-scroll">
                     <span class="car-badge bestseller">Best Seller</span>
                     <div class="car-image">
@@ -1463,7 +1093,6 @@
                     </div>
                 </div>
 
-                <!-- Innova Reborn -->
                 <div class="car-card animate-on-scroll">
                     <span class="car-badge promo">Promo</span>
                     <div class="car-image">
@@ -1483,7 +1112,6 @@
                     </div>
                 </div>
 
-                <!-- Fortuner -->
                 <div class="car-card animate-on-scroll">
                     <div class="car-image">
                         <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&q=80" alt="Fortuner" onerror="this.src='https://via.placeholder.com/300x180/1a2332/ffffff?text=Fortuner'">
@@ -1502,7 +1130,6 @@
                     </div>
                 </div>
 
-                <!-- Xpander -->
                 <div class="car-card animate-on-scroll">
                     <div class="car-image">
                         <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0637?w=400&q=80" alt="Xpander" onerror="this.src='https://via.placeholder.com/300x180/1a2332/ffffff?text=Xpander'">
@@ -1530,9 +1157,7 @@
     <section class="howto-section">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <div class="subtitle">
-                    <span></span>Proses Mudah<span></span>
-                </div>
+                <div class="subtitle"><span></span>Proses Mudah<span></span></div>
                 <h2>Cara Order Mudah</h2>
                 <p>Hanya 5 langkah sederhana untuk menyewa mobil impian Anda</p>
             </div>
@@ -1576,9 +1201,7 @@
     <section class="testimonial-section" id="harga">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <div class="subtitle">
-                    <span></span>Testimoni<span></span>
-                </div>
+                <div class="subtitle"><span></span>Testimoni<span></span></div>
                 <h2>Apa Kata Pelanggan Kami</h2>
                 <p>Kepuasan pelanggan adalah prioritas utama kami</p>
             </div>
@@ -1586,55 +1209,34 @@
             <div class="testimonial-grid">
                 <div class="testimonial-card animate-on-scroll">
                     <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
                     <p class="testimonial-text">"Pelayanan sangat memuaskan, mobil bersih dan wangi. Pasti akan sewa lagi!"</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">R</div>
-                        <div class="author-info">
-                            <h4>Rudi Hartono</h4>
-                            <span>Pekanbaru</span>
-                        </div>
+                        <div class="author-info"><h4>Rudi Hartono</h4><span>Pekanbaru</span></div>
                     </div>
                 </div>
 
                 <div class="testimonial-card animate-on-scroll">
                     <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
                     <p class="testimonial-text">"Harga terjangkau, proses cepat dan driver sangat ramah."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">D</div>
-                        <div class="author-info">
-                            <h4>Dewi Lestari</h4>
-                            <span>Pekanbaru</span>
-                        </div>
+                        <div class="author-info"><h4>Dewi Lestari</h4><span>Pekanbaru</span></div>
                     </div>
                 </div>
 
                 <div class="testimonial-card animate-on-scroll">
                     <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
                     <p class="testimonial-text">"Armada lengkap dan kondisi mobil sangat terawat. Recommended!"</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">A</div>
-                        <div class="author-info">
-                            <h4>Andi Pratama</h4>
-                            <span>Pekanbaru</span>
-                        </div>
+                        <div class="author-info"><h4>Andi Pratama</h4><span>Pekanbaru</span></div>
                     </div>
                 </div>
             </div>
@@ -1662,9 +1264,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-car"></i>
-                        </div>
+                        <div class="logo-icon"><i class="fas fa-car"></i></div>
                         <div class="logo-text">
                             <h2>RENTAL MOBIL</h2>
                             <span>Mudah, Cepat & Terpercaya</span>
@@ -1716,7 +1316,6 @@
 
     <!-- ===== JAVASCRIPT ===== -->
     <script>
-        // Navbar scroll effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -1726,15 +1325,11 @@
             }
         });
 
-        // Mobile menu toggle
         function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            const hamburger = document.getElementById('hamburger');
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+            document.getElementById('hamburger').classList.toggle('active');
         }
 
-        // Close mobile menu on link click
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('navLinks').classList.remove('active');
@@ -1742,56 +1337,37 @@
             });
         });
 
-        // Scroll to booking
         function scrollToBooking() {
             document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Countdown Timer
         function startCountdown() {
             let totalSeconds = 8 * 3600 + 45 * 60 + 32;
-
             function updateTimer() {
-                if (totalSeconds <= 0) {
-                    totalSeconds = 24 * 3600; // Reset
-                }
+                if (totalSeconds <= 0) totalSeconds = 24 * 3600;
                 totalSeconds--;
-
                 const h = Math.floor(totalSeconds / 3600);
                 const m = Math.floor((totalSeconds % 3600) / 60);
                 const s = totalSeconds % 60;
-
                 document.getElementById('hours').textContent = String(h).padStart(2, '0');
                 document.getElementById('minutes').textContent = String(m).padStart(2, '0');
                 document.getElementById('seconds').textContent = String(s).padStart(2, '0');
             }
-
             setInterval(updateTimer, 1000);
         }
         startCountdown();
 
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 100);
+                    setTimeout(() => { entry.target.classList.add('visible'); }, index * 100);
                     observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
+        document.querySelectorAll('.animate-on-scroll').forEach(el => { observer.observe(el); });
 
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Counter animation for stats
         function animateCounters() {
             const counters = document.querySelectorAll('.stat-number[data-target]');
             counters.forEach(counter => {
@@ -1799,7 +1375,6 @@
                 const duration = 2000;
                 const step = target / (duration / 16);
                 let current = 0;
-
                 const updateCounter = () => {
                     current += step;
                     if (current < target) {
@@ -1813,7 +1388,6 @@
             });
         }
 
-        // Trigger counter animation when stats section is visible
         const statsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1822,11 +1396,9 @@
                 }
             });
         }, { threshold: 0.3 });
-
         const statsSection = document.querySelector('.stats-section');
         if (statsSection) statsObserver.observe(statsSection);
 
-        // Active nav link on scroll
         const sections = document.querySelectorAll('section[id]');
         window.addEventListener('scroll', () => {
             let current = '';
@@ -1836,7 +1408,6 @@
                     current = section.getAttribute('id');
                 }
             });
-
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === '#' + current) {
@@ -1845,10 +1416,7 @@
             });
         });
 
-        // Smooth reveal on page load
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '1';
-        });
+        window.addEventListener('load', () => { document.body.style.opacity = '1'; });
     </script>
 </body>
 </html>
