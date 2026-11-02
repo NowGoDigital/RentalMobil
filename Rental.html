@@ -233,13 +233,26 @@
             overflow: hidden;
         }
 
+        .hero-gradient {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 40%;
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.95) 0%, rgba(17, 24, 39, 0.9) 50%, rgba(10, 14, 26, 0.7) 100%);
+            z-index: 1;
+        }
+
         .hero-bg {
             position: absolute;
-            inset: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 60%;
             background: 
-                linear-gradient(135deg, rgba(10, 14, 26, 0.85) 0%, rgba(10, 14, 26, 0.75) 40%, rgba(10, 14, 26, 0.5) 100%),
-                url('https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=1920&q=80') center/cover no-repeat;
-            z-index: 1;
+                linear-gradient(90deg, rgba(10, 14, 26, 0.3) 0%, transparent 40%),
+                url('https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=1200&q=80') center right/cover no-repeat;
+            z-index: 2;
         }
 
         .hero-bg::after {
@@ -248,15 +261,21 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 250px;
+            height: 200px;
             background: linear-gradient(transparent, var(--dark-bg));
         }
 
         .hero-content {
             position: relative;
-            z-index: 2;
-            max-width: 800px;
+            z-index: 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
             padding: 140px 0 100px;
+        }
+
+        .hero-text {
             animation: fadeInUp 1s ease;
         }
 
@@ -281,11 +300,10 @@
 
         .hero-text h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(42px, 6vw, 72px);
+            font-size: clamp(38px, 5vw, 58px);
             font-weight: 900;
-            line-height: 1.05;
+            line-height: 1.1;
             margin-bottom: 24px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .hero-text h1 .highlight {
@@ -295,18 +313,37 @@
         }
 
         .hero-text p {
-            font-size: 18px;
+            font-size: 17px;
             color: var(--text-light);
-            max-width: 600px;
-            margin-bottom: 40px;
+            max-width: 480px;
+            margin-bottom: 36px;
             line-height: 1.7;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .hero-buttons {
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
+        }
+
+        .hero-car {
+            position: relative;
+            animation: fadeInRight 1s ease 0.3s both;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .hero-car img {
+            width: 100%;
+            max-width: 520px;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.6));
+            transform: perspective(1000px) rotateY(-8deg);
+            transition: var(--transition);
+        }
+
+        .hero-car img:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.03);
         }
 
         @keyframes fadeInUp {
@@ -317,6 +354,17 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
 
@@ -1184,6 +1232,23 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin: 0 auto 36px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-car {
+                display: none;
+            }
+
             .booking-form .form-container {
                 grid-template-columns: 1fr 1fr;
             }
@@ -1361,6 +1426,7 @@
 
     <!-- ===== HERO SECTION ===== -->
     <section class="hero" id="beranda">
+        <div class="hero-gradient"></div>
         <div class="hero-bg"></div>
         <div class="container">
             <div class="hero-content">
@@ -1383,6 +1449,9 @@
                             <i class="fas fa-car"></i> Lihat Armada
                         </button>
                     </div>
+                </div>
+                <div class="hero-car">
+                    <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=800&q=80" alt="SUV Premium" onerror="this.src='https://via.placeholder.com/520x350/1a2332/f5a623?text=Premium+SUV'">
                 </div>
             </div>
         </div>
@@ -1426,7 +1495,7 @@
                     <div class="value">30%</div>
                 </div>
                 <div class="promo-info">
-                    <h3> PROMO SPESIAL HARI INI!</h3>
+                    <h3>🔥 PROMO SPESIAL HARI INI!</h3>
                     <p>Sewa mobil sekarang dan dapatkan diskon spesial terbatas!</p>
                 </div>
                 <div class="countdown">
