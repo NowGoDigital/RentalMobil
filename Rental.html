@@ -171,7 +171,7 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-        /* ===== HERO SECTION (DIPERBAIKI TOTAL) ===== */
+        /* ===== HERO SECTION (DIPERBAIKI) ===== */
         .hero {
             min-height: 100vh;
             position: relative;
@@ -181,30 +181,30 @@
             background: var(--dark-bg);
         }
 
-        /* Layer 1: Foto mobil sebagai background di sebelah kanan */
+        /* Layer 1: Foto mobil sebagai background di sebelah kanan (75%) */
         .hero-bg-image {
             position: absolute;
             right: 0;
             top: 0;
             bottom: 0;
-            width: 55%;
+            width: 75%;
             background: 
-                linear-gradient(90deg, var(--dark-bg) 0%, transparent 15%),
+                linear-gradient(90deg, var(--dark-bg) 0%, transparent 8%),
                 url('https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=1400&q=80') center right / cover no-repeat;
             z-index: 1;
         }
 
-        /* Layer 2: Gradient gelap di sebelah kiri untuk area teks */
+        /* Layer 2: Gradient gelap hanya 1/4 di sebelah kiri */
         .hero-gradient {
             position: absolute;
             left: 0;
             top: 0;
             bottom: 0;
-            width: 55%;
+            width: 30%;
             background: linear-gradient(90deg, 
                 rgba(10, 14, 26, 1) 0%, 
-                rgba(10, 14, 26, 0.95) 40%, 
-                rgba(10, 14, 26, 0.7) 70%, 
+                rgba(10, 14, 26, 0.95) 60%, 
+                rgba(10, 14, 26, 0.7) 85%, 
                 transparent 100%);
             z-index: 2;
         }
@@ -230,7 +230,8 @@
         }
 
         .hero-text {
-            max-width: 560px;
+            max-width: 520px;
+            margin-left: 0;
             animation: fadeInUp 1s ease;
         }
 
@@ -256,6 +257,7 @@
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: 20px;
+            text-align: left;
         }
 
         .hero-text h1 .highlight { color: var(--primary); }
@@ -266,12 +268,14 @@
             max-width: 480px;
             margin-bottom: 36px;
             line-height: 1.7;
+            text-align: left;
         }
 
         .hero-buttons {
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
+            justify-content: flex-start;
         }
 
         @keyframes fadeInUp {
@@ -865,8 +869,8 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
-            .hero-bg-image { width: 50%; }
-            .hero-gradient { width: 50%; }
+            .hero-bg-image { width: 65%; }
+            .hero-gradient { width: 35%; }
             .booking-form .form-container { grid-template-columns: 1fr 1fr; }
             .fleet-grid { grid-template-columns: repeat(2, 1fr); }
             .howto-steps { grid-template-columns: repeat(3, 1fr); }
@@ -954,9 +958,9 @@
 
     <!-- ===== HERO SECTION ===== -->
     <section class="hero" id="beranda">
-        <!-- Background foto mobil di kanan -->
+        <!-- Background foto mobil di kanan (75%) -->
         <div class="hero-bg-image"></div>
-        <!-- Gradient gelap di kiri untuk area teks -->
+        <!-- Gradient gelap hanya 1/4 di kiri -->
         <div class="hero-gradient"></div>
         
         <div class="container">
